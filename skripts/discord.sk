@@ -1,0 +1,89 @@
+options:
+	token: "your_token" # The bot's token, do not reveal
+	bot: "2873" # The bot's name
+	botName: 2873
+	skName: discord # The name of the skript, must not be in quotation marks.
+	status: "2873.minehut.gg" # The status the bot is goint to display
+
+	guild: 692790667440554035
+
+on load:
+	login to {@token} with name {@bot}
+	set online status of bot named {@bot} to online
+	set presence of bot named {@bot} to playing {@status}
+	stop
+
+command /link:
+	usage: &7Usage: &6/link
+	trigger:
+		if {code::%player%} is not set:
+			set {_e} to random 6 char string from charset `a-zA-Z0-9`
+			set {code::%{_e}%} to player
+			set {code::%player%} to {_e}
+			send "&7Your code to link is &6%{_e}%&7. Go to our Discord server and type &6/link <your code>&7."
+		
+		else if {code::%player%} is set:
+			set {confirmregen::%player%} to true
+			send "&7Your code to link is &6%{code::%player%}%&7. &eAre you sure you want to regenerate the code?"
+			stop
+		
+		else if {confirmregen::%player%} = true:
+			clear {confirmregen::%player%}
+			send "&6Regenerating code..."
+			wait 1 second
+			set {_e} to random 6 char string from charset `a-zA-Z0-9`
+			set {code::%{_e}%} to player
+			set {code::%player%} to {_e}
+			send "&7Your code to link is &6%{_e}%&7. Go to our Discord server and type &6/link <your code>&7."
+
+slash command link [<string>]:
+	description: Allows you to link your Discord account to your Minecraft account.
+	bots: {@botName}
+	options:
+		1:
+			name: code
+			description: Your code link you got from /link ingame.
+	
+	trigger:
+		if arg 1 is not set:
+			make embed:
+				set description of the embed to "Please input your verification code. If you don't have one, type `/link` ingame."
+				set color of the embed to color from rgb 255, 0, 0
+			reply with last made embed
+		
+		if {code::%arg 1%} is not set:
+			make embed:
+				set description of the embed to "That code is invalid. Use `/link` ingame to get your code."
+				set color of the embed to color from rgb 255, 0, 0
+			reply with last made embed
+		
+		else:
+			set {discord::%discord id of event-member%::player} to {code::%arg-1%}
+			set {discord::%discord id of event-member%} to discord id of event-member
+			make embed:
+				set color of the embed to color from rgb 0, 255, 0
+				set description of the embed to "Your minecraft account **%{code::%arg-1%}%** has been linked to your Discord account."
+			reply with last made embed
+			set the discord nickname of event-member to "%{code::%arg-1%}%" with event-bot
+			add role with id "753928998312083517" to roles of event-member
+			send "&7Your discord account &6%event-member%##%discriminator of event-user% &7has been linked to your minecraft account." to {code::%arg-1%}
+			if {link::*} does not contain {code::%arg-1%}:
+				add {code::%arg-1%} to {link::*}
+			delete {code::%arg-1%}
+
+slash command linked:
+	description: Shows you the linked members.
+	bots: {@botName}
+	trigger:
+		if event-member doesn't have discord permission manage roles:
+			make embed:
+				set description of the embed to "You do not have permission to perform this command."
+				set color of the embed to color from rgb 255, 0, 0
+			reply with hidden last made embed
+		
+		else:
+			make embed:
+				set color of the embed to color from rgb 255, 165, 0
+				set the title of embed to "Linked Members"
+				set description of the embed to "%{link::*}%"
+			reply with hidden last made embed

@@ -1,0 +1,11 @@
+# This skript blocks bedrock joining.
+# This is just to improve player experience because kitpvp on bedrock = shit
+
+on connect:
+	set {_p} to player
+	if {_p} contains "*":
+		kick player due to "&cWe don't recommend playing on bedrock on our server."
+		stop
+	
+	else:
+		stop

@@ -1,0 +1,805 @@
+
+		
+		
+variables:
+	{kills2::%player%} = 0
+	{deaths2::%player%} = 0
+	{killstreak2::%player%} = 0
+	
+	
+	
+
+every 9 seconds:
+	loop all players:
+		wipe loop-player's sidebar
+		set name of sidebar of loop-player to "&5&l2873 &7| &3&lKit&2&lPvP"
+		set score "&1&7&m                                  " in sidebar of loop-player to 13
+		set score "&6&lStats:" in sidebar of loop-player to 12
+		set score "&3&lKills: &2%{kills3::%loop-player's uuid%}%" in sidebar of loop-player to 11
+		set score "&3&lDeaths: &2%{deaths3::%loop-player's uuid%}%" in sidebar of loop-player to 10
+		set score "&3&lStreak: &2%{killstreak3::%loop-player's uuid%}%" in sidebar of loop-player to 10
+		set score "&3&lKDR: &2%{kills3::%loop-player's uuid%}/{deaths3::%loop-player's uuid%}%" in sidebar of loop-player to 8
+		set score "&3&lBalance: &2%loop-player's balance%" in sidebar of loop-player to 7
+		set score "&2&7&m                                  " in sidebar of loop-player to 6
+		set score "&3&lLevel: &2%loop-player's level%" in sidebar of loop-player to 5
+		set score "&3&lProgress: &2%loop-player's level/loop-player's level+1*100%%%" in sidebar of loop-player to 4
+		#set score "&3&lExperience: &2%{progess::%{_p}%}%" in sidebar of loop-player to 4
+		if loop-player's group is "Default":
+			set score "&3&lRank: &7Default" in sidebar of loop-player to 3
+		if loop-player's group is "vip":
+			set score "&3&lRank: &aVIP" in sidebar of loop-player to 3
+		if loop-player's group is "elite":
+			set score "&3&lRank: &dElite" in sidebar of loop-player to 3
+		if loop-player's group is "supreme":
+			set score "&3&lRank: &9Supreme" in sidebar of loop-player to 3
+		if loop-player's group is "pro":
+			set score "&3&lRank: &6Pro" in sidebar of loop-player to 3
+		if loop-player's group is "god":
+			set score "&3&lRank: &9&lGod" in sidebar of loop-player to 3
+		if loop-player's group is "king":
+			set score "&3&lRank: &6&lKing" in sidebar of loop-player to 3
+		if loop-player's group is "youtube":
+			set score "&3&lRank: &3YouTube" in sidebar of loop-player to 3
+		if loop-player's group is "twitch":
+			set score "&3&lRank: &5&lTwitch" in sidebar of loop-player to 3
+		if loop-player's group is "trainee":
+			set score "&3&lRank: &eTrainee" in sidebar of loop-player to 3
+		if loop-player's group is "builder":
+			set score "&3&lRank: &2&oBuilder" in sidebar of loop-player to 3
+		if loop-player's group is "mod":
+			set score "&3&lRank: &5Mod" in sidebar of loop-player to 3
+		if loop-player's group is "s-mod":
+			set score "&3&lRank: &5&oS-Mod" in sidebar of loop-player to 3
+		if loop-player's group is "admin":
+			set score "&3&lRank: &cAdmin" in sidebar of loop-player to 3
+		if loop-player's group is "manager":
+			set score "&3&lRank: &c&lManager" in sidebar of loop-player to 3
+		if loop-player's group is "developer":
+			set score "&3&lRank: &b&lDeveloper" in sidebar of loop-player to 3
+		if loop-player's group is "owner":
+			set score "&3&lRank: &4Owner" in sidebar of loop-player to 3
+		set score "&7&m                                  " in sidebar of loop-player to 2
+		set score "&5&l2873.minehut.gg" in sidebar of loop-player to 1
+	wait 3 seconds
+	loop all players:
+		wipe loop-player's sidebar
+		set name of sidebar of loop-player to "&2&l2873 &7| &3&lKit&2&lPvP"
+		set score "&1&7&m                                  " in sidebar of loop-player to 13
+		set score "&e&lStats:" in sidebar of loop-player to 12
+		set score "&3&lKills: &2%{kills3::%loop-player's uuid%}%" in sidebar of loop-player to 11
+		set score "&3&lDeaths: &2%{deaths3::%loop-player's uuid%}%" in sidebar of loop-player to 10
+		set score "&3&lStreak: &2%{killstreak3::%loop-player's uuid%}%" in sidebar of loop-player to 10
+		set score "&3&lKDR: &2%{kills3::%loop-player's uuid%}/{deaths3::%loop-player's uuid%}%" in sidebar of loop-player to 8
+		set score "&3&lBalance: &2%loop-player's balance%" in sidebar of loop-player to 7
+		set score "&2&7&m                                  " in sidebar of loop-player to 6
+		set score "&3&lLevel: &2%loop-player's level%" in sidebar of loop-player to 5
+		set score "&3&lProgress: &2%loop-player's level/loop-player's level+1*100%%%" in sidebar of loop-player to 4
+		#set score "&3&lExperience: &2%{progess::%{_p}%}%" in sidebar of loop-player to 4
+		if loop-player's group is "Default":
+			set score "&3&lRank: &7Default" in sidebar of loop-player to 3
+		if loop-player's group is "vip":
+			set score "&3&lRank: &aVIP" in sidebar of loop-player to 3
+		if loop-player's group is "elite":
+			set score "&3&lRank: &dElite" in sidebar of loop-player to 3
+		if loop-player's group is "supreme":
+			set score "&3&lRank: &9Supreme" in sidebar of loop-player to 3
+		if loop-player's group is "pro":
+			set score "&3&lRank: &6Pro" in sidebar of loop-player to 3
+		if loop-player's group is "god":
+			set score "&3&lRank: &9&lGod" in sidebar of loop-player to 3
+		if loop-player's group is "king":
+			set score "&3&lRank: &6&lKing" in sidebar of loop-player to 3
+		if loop-player's group is "youtube":
+			set score "&3&lRank: &3YouTube" in sidebar of loop-player to 3
+		if loop-player's group is "twitch":
+			set score "&3&lRank: &5&lTwitch" in sidebar of loop-player to 3
+		if loop-player's group is "trainee":
+			set score "&3&lRank: &eTrainee" in sidebar of loop-player to 3
+		if loop-player's group is "builder":
+			set score "&3&lRank: &2&oBuilder" in sidebar of loop-player to 3
+		if loop-player's group is "mod":
+			set score "&3&lRank: &5Mod" in sidebar of loop-player to 3
+		if loop-player's group is "s-mod":
+			set score "&3&lRank: &5&oS-Mod" in sidebar of loop-player to 3
+		if loop-player's group is "admin":
+			set score "&3&lRank: &cAdmin" in sidebar of loop-player to 3
+		if loop-player's group is "manager":
+			set score "&3&lRank: &c&lManager" in sidebar of loop-player to 3
+		if loop-player's group is "developer":
+			set score "&3&lRank: &b&lDeveloper" in sidebar of loop-player to 3
+		if loop-player's group is "owner":
+			set score "&3&lRank: &4Owner" in sidebar of loop-player to 3
+		set score "&7&m                                  " in sidebar of loop-player to 2
+		set score "&2&l2873.minehut.gg" in sidebar of loop-player to 1
+	wait 3 seconds
+	loop all players:
+		wipe loop-player's sidebar
+		set name of sidebar of loop-player to "&1&l2873 &7| &3&lKit&2&lPvP"
+		set score "&1&7&m                                  " in sidebar of loop-player to 13
+		set score "&f&lStats:" in sidebar of loop-player to 12
+		set score "&3&lKills: &2%{kills3::%loop-player's uuid%}%" in sidebar of loop-player to 11
+		set score "&3&lDeaths: &2%{deaths3::%loop-player's uuid%}%" in sidebar of loop-player to 10
+		set score "&3&lStreak: &2%{killstreak3::%loop-player's uuid%}%" in sidebar of loop-player to 10
+		set score "&3&lKDR: &2%{kills3::%loop-player's uuid%}/{deaths3::%loop-player's uuid%}%" in sidebar of loop-player to 8
+		set score "&3&lBalance: &2%loop-player's balance%" in sidebar of loop-player to 7
+		set score "&2&7&m                                  " in sidebar of loop-player to 6
+		set score "&3&lLevel: &2%loop-player's level%" in sidebar of loop-player to 5
+		set score "&3&lProgress: &2%loop-player's level/loop-player's level+1*100%%%" in sidebar of loop-player to 4
+		#set score "&3&lExperience: &2%{progess::%{_p}%}%" in sidebar of loop-player to 4
+		if loop-player's group is "Default":
+			set score "&3&lRank: &7Default" in sidebar of loop-player to 3
+		if loop-player's group is "vip":
+			set score "&3&lRank: &aVIP" in sidebar of loop-player to 3
+		if loop-player's group is "elite":
+			set score "&3&lRank: &dElite" in sidebar of loop-player to 3
+		if loop-player's group is "supreme":
+			set score "&3&lRank: &9Supreme" in sidebar of loop-player to 3
+		if loop-player's group is "pro":
+			set score "&3&lRank: &6Pro" in sidebar of loop-player to 3
+		if loop-player's group is "god":
+			set score "&3&lRank: &9&lGod" in sidebar of loop-player to 3
+		if loop-player's group is "king":
+			set score "&3&lRank: &6&lKing" in sidebar of loop-player to 3
+		if loop-player's group is "youtube":
+			set score "&3&lRank: &3YouTube" in sidebar of loop-player to 3
+		if loop-player's group is "twitch":
+			set score "&3&lRank: &5&lTwitch" in sidebar of loop-player to 3
+		if loop-player's group is "trainee":
+			set score "&3&lRank: &eTrainee" in sidebar of loop-player to 3
+		if loop-player's group is "builder":
+			set score "&3&lRank: &2&oBuilder" in sidebar of loop-player to 3
+		if loop-player's group is "mod":
+			set score "&3&lRank: &5Mod" in sidebar of loop-player to 3
+		if loop-player's group is "s-mod":
+			set score "&3&lRank: &5&oS-Mod" in sidebar of loop-player to 3
+		if loop-player's group is "admin":
+			set score "&3&lRank: &cAdmin" in sidebar of loop-player to 3
+		if loop-player's group is "manager":
+			set score "&3&lRank: &c&lManager" in sidebar of loop-player to 3
+		if loop-player's group is "developer":
+			set score "&3&lRank: &b&lDeveloper" in sidebar of loop-player to 3
+		if loop-player's group is "owner":
+			set score "&3&lRank: &4Owner" in sidebar of loop-player to 3
+		set score "&7&m                                  " in sidebar of loop-player to 2
+		set score "&1&l2873.minehut.gg" in sidebar of loop-player to 1
+		
+		
+on death:
+	add 1 to {deaths3::%victim's uuid%}
+	add 1 to {kills3::%attacker's uuid%}
+	add 1 to {killstreak3::%attacker's uuid%}
+	if {killstreak3::%attacker's uuid%} is 10 or 20 or 30 or 40 or 50 or 60 or 70 or 80 or 90 or 100 or 110 or 120 or 130 or 140 or 150 or 160 or 170 or 180 or 190 or 200:
+		if attacker is a player:
+			broadcast "&6&lSTREAK! &e%attacker% &7has a kill streak of &6%{killstreak3::%attacker's uuid%}% &7kills!"
+	loop victim's inventory:
+		drop loop-value
+	clear victim's inventory
+	if {killstreak3::%victim's uuid%} is greater than 9:
+		if attacker is a player:
+			broadcast "&6%attacker% &7has ended &6%victim%&7's &e%{killstreak3::%victim's uuid%}% &7kill streak!"
+	set {killstreak3::%victim's uuid%} to 0
+	if attacker is a player:
+		send "&c%attacker% &ckilled you with &e%attacker's health% &e❤&c."
+
+
+
+variables:
+	{setspawn} = false
+
+command /spawn [<player>]:
+	usage: &7Usage: &6/spawn
+	trigger:
+		if {setspawn} is true:
+			if arg-1 is set:
+				if player has permission "staff.spawn.others":
+					teleport arg-1 to {spawn}
+					send "&7Teleported &6%arg-1% &7to spawn." to player
+					send "&6You have been sent to spawn." to arg-1
+					stop
+				else:
+					player command "spawn"
+					stop
+			else:
+				teleport player to {spawn}
+				send "&6Teleporting..." to player
+				stop
+		else:
+			send "&cSpawn is not set! Contact an administrator."
+			
+			
+command /setspawn:
+	usage: &cUsage: /setspawn
+	permission: op
+	permission message: &cI'm sorry, but you do not have permission to perform this command.
+	trigger:
+		if {setspawn} is false:
+			set {setspawn} to true
+			set {spawn} to player's location
+			send "&a&lSUCCESS! &7Spawn was set to your location, &6%{spawn}%&7."
+			stop
+		else if {setspawn} is true:
+			set {setspawn} to true
+			set {spawn} to player's location
+			send "&7The old spawn has been deleted and replaced with your location, &6%{spawn}%&7."
+			stop
+
+
+on first join:
+	if player's level is 0:
+		set player's level to 1
+
+
+
+on chat:
+	if player's group is "default":
+		if player's level is 0 or 1 or 2 or 3:
+			if {tagOn::%player%} is true:
+				set the chat format to "&7[%player's level%&7] %{tag::%player%}% %player's display name% &6» &7%message%"
+			else:
+				set the chat format to "&7[%player's level%&7] %player's display name% &6» &7%message%"
+		if player's level is 4 or 5 or 6:
+			if {tagOn::%player%} is true:
+				set the chat format to "&7[&e%player's level%&7] %{tag::%player%}% %player's display name% &6» &7%message%"
+			else:
+				set the chat format to "&7[&e%player's level%&7] %player's display name% &6» &7%message%"
+		if player's level is 7 or 8 or 9:
+			if {tagOn::%player%} is true:
+				set the chat format to "&7[&a%player's level%&7] %{tag::%player%}% %player's display name% &6» &7%message%"
+			else:
+				set the chat format to "&7[&a%player's level%&7] %player's display name% &6» &7%message%"
+		if player's level is 10 or 11 or 12:
+			if {tagOn::%player%} is true:
+				set the chat format to "&7[&c%player's level%&7] %{tag::%player%}% %player's display name% &6» &7%message%"
+			else:
+				set the chat format to "&7[&c%player's level%&7] %player's display name% &6» &7%message%"
+		if player's level is 13 or 14 or 15:
+			if {tagOn::%player%} is true:
+				set the chat format to "&7[&b%player's level%&7] %{tag::%player%}% %player's display name% &6» &7%message%"
+			else:
+				set the chat format to "&7[&b%player's level%&7] %player's display name% &6» &7%message%"
+		if player's level is 16 or 17 or 18:
+			if {tagOn::%player%} is true:
+				set the chat format to "&7[&d%player's level%&7] %{tag::%player%}% %player's display name% &6» &7%message%"
+			else:
+				set the chat format to "&7[&d%player's level%&7] %player's display name% &6» &7%message%"
+		if player's level is 19 or 20 or 21:
+			if {tagOn::%player%} is true:
+				set the chat format to "&7[&b%player's level%&7] %{tag::%player%}% %player's display name% &6» &7%message%"
+			else:
+				set the chat format to "&7[&b%player's level%&7] %player's display name% &6» &7%message%"
+		if player's level is 23 or 22 or 24:
+			if {tagOn::%player%} is true:
+				set the chat format to "&7[&9%player's level%&7] %{tag::%player%}% %player's display name% &6» &7%message%"
+			else:
+				set the chat format to "&7[&9%player's level%&7] %player's display name% &6» &7%message%"
+		if player's level is 25 or 26 or 27:
+			if {tagOn::%player%} is true:
+				set the chat format to "&7[&1%player's level%&7] %{tag::%player%}% %player's display name% &6» &7%message%"
+			else:
+				set the chat format to "&7[&1%player's level%&7] %player's display name% &6» &7%message%"
+		if player's level is 28 or 29 or 30:
+			if {tagOn::%player%} is true:
+				set the chat format to "&7[&d%player's level%&7] %{tag::%player%}% %player's display name% &6» &7%message%"
+			else:
+				set the chat format to "&7[&d%player's level%&7] %player's display name% &6» &7%message%"
+		if player's level is 31 or 32 or 33:
+			if {tagOn::%player%} is true:
+				set the chat format to "&7[&6&l%player's level%&7] %{tag::%player%}% %player's display name% &6» &7%message%"
+			else:
+				set the chat format to "&7[&6&l%player's level%&7] %player's display name% &6» &7%message%"
+		if player's level is 34 or 35 or 36:
+			if {tagOn::%player%} is true:
+				set the chat format to "&7[&a&l%player's level%&7] %{tag::%player%}% %player's display name% &6» &7%message%"
+			else:
+				set the chat format to "&7[&a&l%player's level%&7] %player's display name% &6» &7%message%"
+		if player's level is 37 or 38 or 39:
+			if {tagOn::%player%} is true:
+				set the chat format to "&7[&1&l%player's level%&7] %{tag::%player%}% %player's display name% &6» &7%message%"
+			else:
+				set the chat format to "&7[&1&l%player's level%&7] %player's display name% &6» &7%message%"
+		if player's level is 40 or 41 or 42:
+			if {tagOn::%player%} is true:
+				set the chat format to "&7[&e&o%player's level%&7] %{tag::%player%}% %player's display name% &6» &7%message%"
+			else:
+				set the chat format to "&7[&e&o%player's level%&7] %player's display name% &6» &7%message%"
+		if player's level is 43 or 44 or 45:
+			if {tagOn::%player%} is true:
+				set the chat format to "&7[&c&o%player's level%&7] %{tag::%player%}% %player's display name% &6» &7%message%"
+			else:
+				set the chat format to "&7[&c&o%player's level%&7] %player's display name% &6» &7%message%"
+		if player's level is 46 or 47 or 48:
+			if {tagOn::%player%} is true:
+				set the chat format to "&7[&b&l%player's level%&7] %{tag::%player%}% %player's display name% &6» &7%message%"
+			else:
+				set the chat format to "&7[&b&l%player's level%&7] %player's display name% &6» &7%message%"
+		if player's level is 49 or 50 or 51:
+			if {tagOn::%player%} is true:
+				set the chat format to "&7[&3&l%player's level%&7] %{tag::%player%}% %player's display name% &6» &7%message%"
+			else:
+				set the chat format to "&7[&3&l%player's level%&7] %player's display name% &6» &7%message%"
+		if player's level is 52 or 53 or 54:
+			if {tagOn::%player%} is true:
+				set the chat format to "&7[&2&l%player's level%&7] %{tag::%player%}% %player's display name% &6» &7%message%"
+			else:
+				set the chat format to "&7[&2&l%player's level%&7] %player's display name% &6» &7%message%"
+		if player's level is 55 or 56 or 57:
+			if {tagOn::%player%} is true:
+				set the chat format to "&7[&c&l%player's level%&7] %{tag::%player%}% %player's display name% &6» &7%message%"
+			else:
+				set the chat format to "&7[&c&l%player's level%&7] %player's display name% &6» &7%message%"
+		if player's level is 58 or 59 or 60:
+			if {tagOn::%player%} is true:
+				set the chat format to "&7[&e&l%player's level%&7] %{tag::%player%}% %player's display name% &6» &7%message%"
+			else:
+				set the chat format to "&7[&e&l%player's level%&7] %player's display name% &6» &7%message%"
+		if player's level is 61 or 62 or 63:
+			if {tagOn::%player%} is true:
+				set the chat format to "&7[&4&l%player's level%&7] %{tag::%player%}% %player's display name% &6» &7%message%"
+			else:
+				set the chat format to "&7[&4&l%player's level%&7] %player's display name% &6» &7%message%"
+		if player's level is 64 or 65 or 66:
+			if {tagOn::%player%} is true:
+				set the chat format to "&7[&9&l%player's level%&7] %{tag::%player%}% %player's display name% &6» &7%message%"
+			else:
+				set the chat format to "&7[&9&l%player's level%&7] %player's display name% &6» &7%message%"
+		if player's level is 67 or 68 or 69:
+			if {tagOn::%player%} is true:
+				set the chat format to "&7[&1&l%player's level%&7] %{tag::%player%}% %player's display name% &6» &7%message%"
+			else:
+				set the chat format to "&7[&1&l%player's level%&7] %player's display name% &6» &7%message%"
+		if player's level is 70 or 71 or 72:
+			if {tagOn::%player%} is true:
+				set the chat format to "&7[&2&l%player's level%&7] %{tag::%player%}% %player's display name% &6» &7%message%"
+			else:
+				set the chat format to "&7[&2&l%player's level%&7] %player's display name% &6» &7%message%"
+		if player's level is 73 or 74 or 75:
+			if {tagOn::%player%} is true:
+				set the chat format to "&7[&a&l%player's level%&7] %{tag::%player%}% %player's display name% &6» &7%message%"
+			else:
+				set the chat format to "&7[&a&l%player's level%&7] %player's display name% &6» &7%message%"
+		if player's level is 76 or 77 or 78:
+			if {tagOn::%player%} is true:
+				set the chat format to "&7[&3&l%player's level%&7] %{tag::%player%}% %player's display name% &6» &7%message%"
+			else:
+				set the chat format to "&7[&3&l%player's level%&7] %player's display name% &6» &7%message%"
+		if player's level is 79 or 80 or 81:
+			if {tagOn::%player%} is true:
+				set the chat format to "&7[&6&l%player's level%&7] %{tag::%player%}% %player's display name% &6» &7%message%"
+			else:
+				set the chat format to "&7[&6&l%player's level%&7] %player's display name% &6» &7%message%"
+		if player's level is 82 or 83 or 84:
+			if {tagOn::%player%} is true:
+				set the chat format to "&7[&b&l%player's level%&7] %{tag::%player%}% %player's display name% &6» &7%message%"
+			else:
+				set the chat format to "&7[&b&l%player's level%&7] %player's display name% &6» &7%message%"
+		if player's level is 85 or 86 or 87:
+			if {tagOn::%player%} is true:
+				set the chat format to "&7[&d&l%player's level%&7] %{tag::%player%}% %player's display name% &6» &7%message%"
+			else:
+				set the chat format to "&7[&d&l%player's level%&7] %player's display name% &6» &7%message%"
+		if player's level is 88 or 89 or 90:
+			if {tagOn::%player%} is true:
+				set the chat format to "&7[&5&l&o%player's level%&7] %{tag::%player%}% %player's display name% &6» &7%message%"
+			else:
+				set the chat format to "&7[&5&l&o%player's level%&7] %player's display name% &6» &7%message%"
+		if player's level is 91 or 92 or 93:
+			if {tagOn::%player%} is true:
+				set the chat format to "&7[&5&l&o%player's level%&7] %{tag::%player%}% %player's display name% &6» &7%message%"
+			else:
+				set the chat format to "&7[&5&l&o%player's level%&7] %player's display name% &6» &7%message%"
+		if player's level is 94 or 95 or 96:
+			if {tagOn::%player%} is true:
+				set the chat format to "&7[&2&l&o%player's level%&7] %{tag::%player%}% %player's display name% &6» &7%message%"
+			else:
+				set the chat format to "&7[&3&l&o%player's level%&7] %player's display name% &6» &7%message%"
+		if player's level is 97 or 98 or 99:
+			if {tagOn::%player%} is true:
+				set the chat format to "&7[&e&l%player's level%&7] %{tag::%player%}% %player's display name% &6» &7%message%"
+			else:
+				set the chat format to "&7[&e&l%player's level%&7] %player's display name% &6» &7%message%"
+		if player's level is 100:
+			if {tagOn::%player%} is true:
+				set the chat format to "&e[&6&l%player's level%&e] %{tag::%player%}% %player's display name% &6» &7%message%"
+			else:
+				set the chat format to "&e[&6&l%player's level%&e] %player's display name% &6» &7%message%"
+		if player's level is greater than 100:
+			if {tagOn::%player%} is true:
+				set the chat format to "&e[&6&l&o%player's level%&e] %{tag::%player%}% %player's display name% &6» &7%message%"
+			else:
+				set the chat format to "&e[&6&l&o%player's level%&e] %player's display name% &6» &7%message%"
+	else:
+		if player's level is 0 or 1 or 2 or 3:
+			if {tagOn::%player%} is true:
+				set the chat format to "&7[%player's level%&7] %{tag::%player%}% %player's display name% &6» &f%message%"
+			else:
+				set the chat format to "&7[%player's level%&7] %player's display name% &6» &f%message%"
+		if player's level is 4 or 5 or 6:
+			if {tagOn::%player%} is true:
+				set the chat format to "&7[&e%player's level%&7] %{tag::%player%}% %player's display name% &6» &f%message%"
+			else:
+				set the chat format to "&7[&e%player's level%&7] %player's display name% &6» &f%message%"
+		if player's level is 7 or 8 or 9:
+			if {tagOn::%player%} is true:
+				set the chat format to "&7[&a%player's level%&7] %{tag::%player%}% %player's display name% &6» &f%message%"
+			else:
+				set the chat format to "&7[&a%player's level%&7] %player's display name% &6» &f%message%"
+		if player's level is 10 or 11 or 12:
+			if {tagOn::%player%} is true:
+				set the chat format to "&7[&c%player's level%&7] %{tag::%player%}% %player's display name% &6» &f%message%"
+			else:
+				set the chat format to "&7[&c%player's level%&7] %player's display name% &6» &f%message%"
+		if player's level is 13 or 14 or 15:
+			if {tagOn::%player%} is true:
+				set the chat format to "&7[&b%player's level%&7] %{tag::%player%}% %player's display name% &6» &f%message%"
+			else:
+				set the chat format to "&7[&b%player's level%&7] %player's display name% &6» &f%message%"
+		if player's level is 16 or 17 or 18:
+			if {tagOn::%player%} is true:
+				set the chat format to "&7[&d%player's level%&7] %{tag::%player%}% %player's display name% &6» &f%message%"
+			else:
+				set the chat format to "&7[&d%player's level%&7] %player's display name% &6» &f%message%"
+		if player's level is 19 or 20 or 21:
+			if {tagOn::%player%} is true:
+				set the chat format to "&7[&b%player's level%&7] %{tag::%player%}% %player's display name% &6» &f%message%"
+			else:
+				set the chat format to "&7[&b%player's level%&7] %player's display name% &6» &f%message%"
+		if player's level is 23 or 22 or 24:
+			if {tagOn::%player%} is true:
+				set the chat format to "&7[&9%player's level%&7] %{tag::%player%}% %player's display name% &6» &f%message%"
+			else:
+				set the chat format to "&7[&9%player's level%&7] %player's display name% &6» &f%message%"
+		if player's level is 25 or 26 or 27:
+			if {tagOn::%player%} is true:
+				set the chat format to "&7[&1%player's level%&7] %{tag::%player%}% %player's display name% &6» &f%message%"
+			else:
+				set the chat format to "&7[&1%player's level%&7] %player's display name% &6» &f%message%"
+		if player's level is 28 or 29 or 30:
+			if {tagOn::%player%} is true:
+				set the chat format to "&7[&d%player's level%&7] %{tag::%player%}% %player's display name% &6» &f%message%"
+			else:
+				set the chat format to "&7[&d%player's level%&7] %player's display name% &6» &f%message%"
+		if player's level is 31 or 32 or 33:
+			if {tagOn::%player%} is true:
+				set the chat format to "&7[&6&l%player's level%&7] %{tag::%player%}% %player's display name% &6» &f%message%"
+			else:
+				set the chat format to "&7[&6&l%player's level%&7] %player's display name% &6» &f%message%"
+		if player's level is 34 or 35 or 36:
+			if {tagOn::%player%} is true:
+				set the chat format to "&7[&a&l%player's level%&7] %{tag::%player%}% %player's display name% &6» &f%message%"
+			else:
+				set the chat format to "&7[&a&l%player's level%&7] %player's display name% &6» &f%message%"
+		if player's level is 37 or 38 or 39:
+			if {tagOn::%player%} is true:
+				set the chat format to "&7[&1&l%player's level%&7] %{tag::%player%}% %player's display name% &6» &f%message%"
+			else:
+				set the chat format to "&7[&1&l%player's level%&7] %player's display name% &6» &f%message%"
+		if player's level is 40 or 41 or 42:
+			if {tagOn::%player%} is true:
+				set the chat format to "&7[&e&o%player's level%&7] %{tag::%player%}% %player's display name% &6» &f%message%"
+			else:
+				set the chat format to "&7[&e&o%player's level%&7] %player's display name% &6» &f%message%"
+		if player's level is 43 or 44 or 45:
+			if {tagOn::%player%} is true:
+				set the chat format to "&7[&c&o%player's level%&7] %{tag::%player%}% %player's display name% &6» &f%message%"
+			else:
+				set the chat format to "&7[&c&o%player's level%&7] %player's display name% &6» &f%message%"
+		if player's level is 46 or 47 or 48:
+			if {tagOn::%player%} is true:
+				set the chat format to "&7[&b&l%player's level%&7] %{tag::%player%}% %player's display name% &6» &f%message%"
+			else:
+				set the chat format to "&7[&b&l%player's level%&7] %player's display name% &6» &f%message%"
+		if player's level is 49 or 50 or 51:
+			if {tagOn::%player%} is true:
+				set the chat format to "&7[&3&l%player's level%&7] %{tag::%player%}% %player's display name% &6» &f%message%"
+			else:
+				set the chat format to "&7[&3&l%player's level%&7] %player's display name% &6» &f%message%"
+		if player's level is 52 or 53 or 54:
+			if {tagOn::%player%} is true:
+				set the chat format to "&7[&2&l%player's level%&7] %{tag::%player%}% %player's display name% &6» &f%message%"
+			else:
+				set the chat format to "&7[&2&l%player's level%&7] %player's display name% &6» &f%message%"
+		if player's level is 55 or 56 or 57:
+			if {tagOn::%player%} is true:
+				set the chat format to "&7[&c&l%player's level%&7] %{tag::%player%}% %player's display name% &6» &f%message%"
+			else:
+				set the chat format to "&7[&c&l%player's level%&7] %player's display name% &6» &f%message%"
+		if player's level is 58 or 59 or 60:
+			if {tagOn::%player%} is true:
+				set the chat format to "&7[&e&l%player's level%&7] %{tag::%player%}% %player's display name% &6» &f%message%"
+			else:
+				set the chat format to "&7[&e&l%player's level%&7] %player's display name% &6» &f%message%"
+		if player's level is 61 or 62 or 63:
+			if {tagOn::%player%} is true:
+				set the chat format to "&7[&4&l%player's level%&7] %{tag::%player%}% %player's display name% &6» &f%message%"
+			else:
+				set the chat format to "&7[&4&l%player's level%&7] %player's display name% &6» &f%message%"
+		if player's level is 64 or 65 or 66:
+			if {tagOn::%player%} is true:
+				set the chat format to "&7[&9&l%player's level%&7] %{tag::%player%}% %player's display name% &6» &f%message%"
+			else:
+				set the chat format to "&7[&9&l%player's level%&7] %player's display name% &6» &f%message%"
+		if player's level is 67 or 68 or 69:
+			if {tagOn::%player%} is true:
+				set the chat format to "&7[&1&l%player's level%&7] %{tag::%player%}% %player's display name% &6» &f%message%"
+			else:
+				set the chat format to "&7[&1&l%player's level%&7] %player's display name% &6» &f%message%"
+		if player's level is 70 or 71 or 72:
+			if {tagOn::%player%} is true:
+				set the chat format to "&7[&2&l%player's level%&7] %{tag::%player%}% %player's display name% &6» &f%message%"
+			else:
+				set the chat format to "&7[&2&l%player's level%&7] %player's display name% &6» &f%message%"
+		if player's level is 73 or 74 or 75:
+			if {tagOn::%player%} is true:
+				set the chat format to "&7[&a&l%player's level%&7] %{tag::%player%}% %player's display name% &6» &f%message%"
+			else:
+				set the chat format to "&7[&a&l%player's level%&7] %player's display name% &6» &f%message%"
+		if player's level is 76 or 77 or 78:
+			if {tagOn::%player%} is true:
+				set the chat format to "&7[&3&l%player's level%&7] %{tag::%player%}% %player's display name% &6» &f%message%"
+			else:
+				set the chat format to "&7[&3&l%player's level%&7] %player's display name% &6» &f%message%"
+		if player's level is 79 or 80 or 81:
+			if {tagOn::%player%} is true:
+				set the chat format to "&7[&6&l%player's level%&7] %{tag::%player%}% %player's display name% &6» &f%message%"
+			else:
+				set the chat format to "&7[&6&l%player's level%&7] %player's display name% &6» &f%message%"
+		if player's level is 82 or 83 or 84:
+			if {tagOn::%player%} is true:
+				set the chat format to "&7[&b&l%player's level%&7] %{tag::%player%}% %player's display name% &6» &f%message%"
+			else:
+				set the chat format to "&7[&b&l%player's level%&7] %player's display name% &6» &f%message%"
+		if player's level is 85 or 86 or 87:
+			if {tagOn::%player%} is true:
+				set the chat format to "&7[&d&l%player's level%&7] %{tag::%player%}% %player's display name% &6» &f%message%"
+			else:
+				set the chat format to "&7[&d&l%player's level%&7] %player's display name% &6» &f%message%"
+		if player's level is 88 or 89 or 90:
+			if {tagOn::%player%} is true:
+				set the chat format to "&7[&5&l&o%player's level%&7] %{tag::%player%}% %player's display name% &6» &f%message%"
+			else:
+				set the chat format to "&7[&5&l&o%player's level%&7] %player's display name% &6» &f%message%"
+		if player's level is 91 or 92 or 93:
+			if {tagOn::%player%} is true:
+				set the chat format to "&7[&5&l&o%player's level%&7] %{tag::%player%}% %player's display name% &6» &f%message%"
+			else:
+				set the chat format to "&7[&5&l&o%player's level%&7] %player's display name% &6» &f%message%"
+		if player's level is 94 or 95 or 96:
+			if {tagOn::%player%} is true:
+				set the chat format to "&7[&2&l&o%player's level%&7] %{tag::%player%}% %player's display name% &6» &f%message%"
+			else:
+				set the chat format to "&7[&3&l&o%player's level%&7] %player's display name% &6» &f%message%"
+		if player's level is 97 or 98 or 99:
+			if {tagOn::%player%} is true:
+				set the chat format to "&7[&e&l%player's level%&7] %{tag::%player%}% %player's display name% &6» &f%message%"
+			else:
+				set the chat format to "&7[&e&l%player's level%&7] %player's display name% &6» &f%message%"
+		if player's level is 100:
+			if {tagOn::%player%} is true:
+				set the chat format to "&e[&6&l%player's level%&e] %{tag::%player%}% %player's display name% &6» &f%message%"
+			else:
+				set the chat format to "&e[&6&l%player's level%&e] %player's display name% &6» &f%message%"
+		if player's level is greater than 100:
+			if {tagOn::%player%} is true:
+				set the chat format to "&e[&6&l&o%player's level%&e] %{tag::%player%}% %player's display name% &6» &f%message%"
+			else:
+				set the chat format to "&e[&6&l&o%player's level%&e] %player's display name% &6» &f%message%"
+
+on death:
+	if victim is a player:
+		if attacker is a player:
+			if attacker is not victim:
+				play sound "random.orb" with volume 100 and pitch 3 at attacker for attacker
+				set {_money} to a random integer between 5 and 30
+				add {_money} to attacker's balance
+				send "&aYou earned &6$%{_money}% &afrom killing %victim%&a." to attacker
+				add 3 to attacker's exp
+				stop
+
+on respawn:
+	player command "/spawn"
+
+on join:
+	if player's minecraft version is not "1.16" or "1.16.1" or "1.16.2" or "1.16.3" or "1.16.4" or "1.16.4-1.16.5" or "1.16.5":
+		send ""
+		send "&c&lWARNING: &cYou seem to not be on 1.16. Your version is &e%player's minecraft version%&c. You may experince some glitches."
+		send ""
+
+
+command /rankshop:
+	usage: &7Usage: &6/rankshop
+	trigger:
+		open virtual chest with 2 rows with name "&6Ranks - &3&l28&b&l73 &6Shop &c(SALE)" to player
+		format gui slot 1 of player with lime wool with name "&aVIP" with lore "&7Click to see perks" to run:
+			open virtual chest with 2 rows with name "&aVIP" to player
+			format gui slot 0 of player with arrow with name "&6Go back" to run:
+				player command "rankshop"
+			format gui slot 4 of player with paper with name "&aVIP &eRank Perks:" with lore "&7[&aVIP&7] &7Prefix", "&aLime &7name" and "&7Access to all default kits & kit Donator" and "&7Access to a special donator PvP Warp" and "&aCost: &6£25k (SALE)" to do nothing
+			format gui slot 12 and 13 and 14 of player with lime wool with name "&aPurchase &aVIP &aRank" to close:
+				open virtual chest with 3 rows with name "Confirm" to player
+				format gui slot 12 of player with red wool with name "&cCancel" to close 
+				format gui slot 14 of player with lime wool with name "&aConfirm" with lore "&c&lYOU CANNOT GET A REFUND FROM THIS!!!" to close:
+					if player's balance >= 25000:
+						remove 25000 from player's balance
+						loop 3 times:
+							console command "bc &c&l%player% &6JUST BOUGHT &7[&aVIP&7] &6RANK FROM &e/rankshop&6!!"
+						console command "lp user %player% parent set vip"
+					else:
+						send "&cYou cannot afford this!"
+		format gui slot 2 of player with pink wool with name "&dElite" with lore "&7Click to see perks" to run:
+			open virtual chest with 2 rows with name "&dELITE" to player
+			format gui slot 0 of player with arrow with name "&6Go back" to run:
+				player command "rankshop"
+			format gui slot 4 of player with paper with name "&6Pro &eRank Perks:" with lore "&7[&dElite&7] &7Prefix", "&dPink &7name" and "&7Access to all default kits & kit Donator" and "&7Access to a special donator PvP Warp" and "&aCost: &6£200k (SALE)" to do nothing
+			format gui slot 12 and 13 and 14 of player with lime wool with name "&aPurchase &dElite &aRank" to close:
+				open virtual chest with 3 rows with name "Confirm" to player
+				format gui slot 12 of player with red wool with name "&cCancel" to close 
+				format gui slot 14 of player with lime wool with name "&aConfirm" with lore "&c&lYOU CANNOT GET A REFUND FROM THIS!!!" to close:
+					if player's balance >= 200000:
+						remove 200000 from player's balance
+						loop 3 times:
+							console command "bc &c&l%player% &6JUST BOUGHT &7[&dELITE&7] &6RANK FROM &e/rankshop&6!!"
+						console command "lp user %player% parent set elite"
+					else:
+						send "&cYou cannot afford this!"
+		format gui slot 3 of player with blue wool with name "&9Supreme" with lore "&7Click to see perks" to run:
+			open virtual chest with 2 rows with name "&9SUPREME" to player
+			format gui slot 0 of player with arrow with name "&6Go back" to run:
+				player command "rankshop"
+			format gui slot 4 of player with paper with name "&6Pro &eRank Perks:" with lore "&7[&9Supreme&7] &7Prefix", "&9Blue &7name" and "&7Access to all default kits & kit Donator" and "&7Access to a special donator PvP Warp" and "&7Access to /ec (Enderchest)" and "&aCost: &6£350k (SALE)" to do nothing
+			format gui slot 12 and 13 and 14 of player with lime wool with name "&aPurchase &9Supreme &aRank" to close:
+				open virtual chest with 3 rows with name "Confirm" to player
+				format gui slot 12 of player with red wool with name "&cCancel" to close 
+				format gui slot 14 of player with lime wool with name "&aConfirm" with lore "&c&lYOU CANNOT GET A REFUND FROM THIS!!!" to close:
+					if player's balance >= 350000:
+						remove 350000 from player's balance
+						loop 3 times:
+							console command "bc &c&l%player% &6JUST BOUGHT &7[&9SUPREME&7] &6RANK FROM &e/rankshop&6!!"
+						console command "lp user %player% parent set supreme"
+					else:
+						send "&cYou cannot afford this!"
+		format gui slot 5 of player with orange wool with name "&6Pro" with lore "&7Click to see perks" to run:
+			open virtual chest with 2 rows with name "&6PRO" to player
+			format gui slot 0 of player with arrow with name "&6Go back" to run:
+				player command "rankshop"
+			format gui slot 4 of player with paper with name "&6Pro &eRank Perks:" with lore "&7[&6Pro&7] &7Prefix", "&6Gold &7name" and "&7Access to all default kits & kit Donator" and "&7Access to a special donator PvP Warp" and "&7Access to /ec (Enderchest)" and "&aCost: &6£400k (SALE)" to do nothing
+			format gui slot 12 and 13 and 14 of player with lime wool with name "&aPurchase &6Pro &aRank" to close:
+				open virtual chest with 3 rows with name "Confirm" to player
+				format gui slot 12 of player with red wool with name "&cCancel" to close 
+				format gui slot 14 of player with lime wool with name "&aConfirm" with lore "&c&lYOU CANNOT GET A REFUND FROM THIS!!!" to close:
+					if player's balance >= 400000:
+						remove 400000 from player's balance
+						loop 3 times:
+							console command "bc &c&l%player% &6JUST BOUGHT &7[&6PRO&7] &6RANK FROM &e/rankshop&6!!"
+						console command "lp user %player% parent set pro"
+					else:
+						send "&cYou cannot afford this!"
+		format gui slot 6 of player with cyan wool with name "&9&lGod" with lore "&7Click to see perks" to run:
+			open virtual chest with 2 rows with name "&9&lGOD" to player
+			format gui slot 0 of player with arrow with name "&6Go back" to run:
+				player command "rankshop"
+			format gui slot 4 of player with paper with name "&9&lGod &eRank Perks:" with lore "&3[&9&lGod&3] &7Prefix", "&6Gold &7name" and "&7Access to ALL kits" and "&7Access to /ec (enderchest)" and "&7Access to a special donator PvP Warp" and "Access to /invsee" and "&aCost: &6£750000 (SALE)" to do nothing
+			format gui slot 12 and 13 and 14 of player with lime wool with name "&aPurchase &9&lGod &aRank" to close:
+				open virtual chest with 3 rows with name "Confirm" to player
+				format gui slot 12 of player with red wool with name "&cCancel" to close 
+				format gui slot 14 of player with lime wool with name "&aConfirm" with lore "&c&lYOU CANNOT GET A REFUND FROM THIS!!!" to close:
+					if player's balance >= 750000:
+						remove 750000 from player's balance
+						loop 3 times:
+							console command "bc &c&l%player% &6JUST BOUGHT &3[&9&LGOD&3] &6RANK FROM &e/rankshop&6!!"
+						console command "lp user %player% parent set god"
+					else:
+						send "&cYou cannot afford this!"
+		format gui slot 7 of player with gold ingot with name "&6&lKing &7(TOP RANK)" with lore "&7Click to see perks" to run:
+			open virtual chest with 2 rows with name "&6&lKing &7Rank" to player
+			format gui slot 0 of player with arrow with name "&6Go back" to run:
+				player command "rankshop"
+			format gui slot 4 of player with paper with name "&6&lKing &eRank Perks:" with lore "&e&l[&6&lKing&e&l] &7Prefix" and "&5&lBold Purple &7name" and "&7Access to ALL kits" and "&7Access to /ec (enderchest)" and "&7Access to a special donator PvP Warp" and "Access to /invsee" and "&aCOST: £1M &6(SALE)" to do nothing
+			format gui slot 12 and 13 and 14 of player with lime wool with name "&aPurchase &6&lKing &aRank" to close:
+				open virtual chest with 3 rows with name "Confirm" to player
+				format gui slot 12 of player with red wool with name "&cCancel" to close 
+				format gui slot 14 of player with lime wool with name "&aConfirm" with lore "&c&lYOU CANNOT GET A REFUND FROM THIS!!!" to close:
+					if player's balance >= 1000000:
+						remove 1000000 from player's balance
+						loop 3 times:
+							console command "bc &c&l%player% &6JUST BOUGHT &e&l[&6&lKING&e&l] &6RANK FROM &e/rankshop&6!!"
+						console command "lp user %player% parent set king"
+					else:
+						send "&cYou cannot afford this!"
+
+
+on chat:
+	if message contains "&1" or "&2" or "&3" or "&4" or "&5" or "&6" or "&7" or "&8" or "&9" or "&0" or "&b" or "&l" or "&o" or "&k" or "&n" or "&m" or "&r":
+		if player does not have permission "chatcolour.use":
+			set {_message} to message
+			replace all "&1" and "&2" and "&3" and "&4" and "&5" and "&6" and "&7" and "&8" and "&9" and "&0" and "&b" and "&l" and "&o" and "&k" and "&n" and "&m" and "&r" with "" in {_message}
+			cancel event
+			make player say "%{_message}%"
+			
+			
+command /version <player>:
+	usage: &7Usage: &6/version <player>
+	aliases: /ver
+	permission: staff.ver
+	permission message: &cI'm sorry, but you do not have permission to perform this command.
+	trigger:
+		send "&b[S] &6%arg-1%&7's version is &6%arg-1's minecraft version%&7." to player
+
+command /stats [<offlineplayer>]:
+	usage: &7Usage: &6/stats [player]
+	trigger:
+		if arg-1 is not set:
+			if executor is a player:
+				send "&6Your &7stats:"
+				send "&6• &7Kills: &e%{kills3::%player's uuid%}%"
+				send "&6• &7Deaths: &e%{deaths3::%player's uuid%}%"
+				send "&6• &7Killstreak: &e%{killstreak3::%player's uuid%}%"
+				send "&6• &7Level: &e%player's level%"
+				send "&6• &7Balance: &e%player's balance%"
+			else:
+				send "&cOnly players can execute this command." to executor
+		else:
+			send "&6%arg-1%&7's &7stats:"
+			send "&6• &7Kills: &e%{kills3::%arg-1's uuid%}%"
+			send "&6• &7Deaths: &e%{deaths3::%arg-1's uuid%}%"
+			send "&6• &7Killstreak: &e%{killstreak3::%arg-1's uuid%}%"
+			send "&6• &7Level: &e%arg-1's level%"
+			send "&6• &7Balance: &e%arg-1's balance%"
+
+
+on first join:
+	set {kills3::%player's uuid%} to 0
+	set {deaths3::%player's uuid%} to 0
+	set {killstreak3::%player's uuid%} to 0
+
+on death:
+	if {killstreak3::%attacker's uuid%} is 15:
+		set {bounty::%attacker's uuid%} to 50
+		broadcast "&6&lBOUNTY &7» &e%attacker% &7now has a bounty of &6£%{bounty::%attacker's uuid%}%&7!"
+	if {killstreak3::%attacker's uuid%} is 25:
+		set {bounty::%attacker's uuid%} to 100
+		broadcast "&6&lBOUNTY &7» &e%attacker% &7now has a bounty of &6£%{bounty::%attacker's uuid%}%&7!"
+	if {killstreak3::%attacker's uuid%} is 30:
+		set {bounty::%attacker's uuid%} to 200
+		broadcast "&6&lBOUNTY &7» &e%attacker% &7now has a bounty of &6£%{bounty::%attacker's uuid%}%&7!"
+
+	if {killstreak3::%attacker's uuid%} is 40:
+		set {bounty::%attacker's uuid%} to 400
+		broadcast "&6&lBOUNTY &7» &e%attacker% &7now has a bounty of &6£%{bounty::%attacker's uuid%}%&7!"
+	if {killstreak3::%attacker's uuid%} is 50:
+		set {bounty::%attacker's uuid%} to 500
+		broadcast "&6&lBOUNTY &7» &e%attacker% &7now has a bounty of &6£%{bounty::%attacker's uuid%}%&7!"
+	if {killstreak3::%attacker's uuid%} is "60":
+		set {bounty::%attacker's uuid%} to 600
+		broadcast "&6&lBOUNTY &7» &e%attacker% &7now has a bounty of &6£%{bounty::%attacker's uuid%}%&7!"
+	if {killstreak3::%attacker's uuid%} is "70":
+		set {bounty::%attacker's uuid%} to 800
+		broadcast "&6&lBOUNTY &7» &e%attacker% &7now has a bounty of &6£%{bounty::%attacker's uuid%}%&7!"
+	if {killstreak3::%attacker's uuid%} is "80":
+		set {bounty::%attacker's uuid%} to 1000
+		broadcast "&6&lBOUNTY &7» &e%attacker% &7now has a bounty of &6£%{bounty::%attacker's uuid%}%&7!"
+	if {killstreak3::%attacker's uuid%} is "90":
+		set {bounty::%attacker's uuid%} to 1100
+		broadcast "&6&lBOUNTY &7» &e%attacker% &7now has a bounty of &6£%{bounty::%attacker's uuid%}%&7!"
+	if {killstreak3::%attacker's uuid%} is "100":
+		set {bounty::%attacker's uuid%} to 1300
+		broadcast "&6&lBOUNTY &7» &e%attacker% &7now has a bounty of &6£%{bounty::%attacker's uuid%}%&7!"
+
+on death:
+	if {bounty::%victim's uuid%} is greater than 0:
+		send "&6&lBOUNTY CLAIMED &7» &e%attacker% &7claimed &e%victim%&e's &6£%{bounty::%victim's uuid%}% &7bounty!"
+		send "&aYou claimed &6%victim%&6's &abounty of &6£%{bounty::%victim's uuid%}%&a!" to attacker
+		set {bounty::%victim's uuid%} to 0
+
+command /setstreak <player> <number>:
+	usage: &7Usage: &6/setsreak <player> <number>
+	permission: op
+	permission: &cAdmin command in development.
+	trigger:
+		if arg-1 is set:
+			if arg-2 is set:
+				set {killstreak3::%arg-1's uuid%} to arg-2
+				send "&6done - %{killstreak3::%arg-1's uuid%}%"
+			else:
+				send "&7Usage: &6/setsreak <player> <number>"
+		else:
+			send "&7Usage: &6/setsreak <player> <number>"

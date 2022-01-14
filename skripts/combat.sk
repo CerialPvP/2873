@@ -1,0 +1,98 @@
+options:
+
+    Prefix: &8&l[&c&l!&8&l]
+
+    CT-Time: 20
+
+    MobsCombat-Tag: true
+
+
+
+command /combattag:
+    aliases: /combatlog,/ct,/cl
+    trigger:
+        if {combatlog::*} contains player:
+            set {_CT.span} to difference between {%player%.combatlog.time} and now
+            set {_CT.cd} to "{@CT-Time} seconds" parsed as timespan
+            send "&7You are in combat for &b%difference between {_CT.span} and {_CT.cd}%&7 seconds."
+        else:
+            send "&aYou are not in combat."
+
+on unload:
+    delete {combatlog::*}
+    delete {combatlag.blocked-cmds::*}
+    delete {kill.combat::*}
+
+
+
+on load:
+    add "tpa" to {combatlag.blocked-cmds::*}
+    add "home" to {combatlag.blocked-cmds::*}
+    add "spawn" to {combatlag.blocked-cmds::*}
+    add "warp" to {combatlag.blocked-cmds::*}
+    add "ec" to {combatlag.blocked-cmds::*}
+    add "pv" to {combatlag.blocked-cmds::*}
+    add "playervault" to {combatlag.blocked-cmds::*}
+    add "v" to {combatlag.blocked-cmds::*}
+    add "sv" to {combatlag.blocked-cmds::*}
+    add "supervanish:v" to {combatlag.blocked-cmds::*}
+    add "supervanish:sv" to {combatlag.blocked-cmds::*}
+    add "supervanish:vanish" to {combatlag.blocked-cmds::*}
+    add "vanish" to {combatlag.blocked-cmds::*}
+
+
+
+on damage:
+    if attacker is player:
+        if attacker is not victim:
+            if {combatlog::*} doesn't contain "%attacker%":
+                if attacker doesn't have permission "CT.Bypass.Player":
+                    add "%attacker%" to {combatlog::*}
+                    send "&7You are in combat with &b%victim%&7. &cLogging out will result in a kill." to attacker
+            if {combatlog::*} doesn't contain "%victim%":
+                if victim doesn't have permission "CT.Bypass.Player":   
+                    add "%victim%" to {combatlog::*}
+                    send "&b%attacker% &7combat tagged you. &cLogging out will result in a kill." to victim
+            set {%attacker%.combatlog.time} to now
+            set {%victim%.combatlog.time} to now
+
+on command:
+    if {combatlog::*} contains player:
+        if {combatlag.blocked-cmds::*} contains command:
+            cancel event
+            send "&cThat command is blocked while in combat." to player
+
+
+
+on join:
+    if {kill.combat::*} contains player:
+        wait 1 tick
+        send "&cYou have been killed for combat logging."
+        console command "/kill %player%"
+        remove player from {kill.combat::*}
+
+
+
+on quit:
+    if {combatlog::*} contains player:
+        loop player's inventory:
+            drop loop-value
+        clear player's inventory
+        add player to {kill.combat::*}
+        remove player from {combatlog::*}
+        send "&6%player% &7logged out while in &ccombat.&7" to all players
+
+
+
+on death of player:
+    if {combatlog::*} contains player:
+        remove player from {combatlog::*}
+
+        
+
+every 1 second:
+    loop {combatlog::*}:
+        set {_combatlog.gettime} to difference between {%loop-value%.combatlog.time} and now
+        if {_combatlog.gettime} > {@CT-Time} seconds:
+            remove loop-value from {combatlog::*}
+            send "&7You are no longer in combat. &aYou may logout now." to loop-value parsed as player

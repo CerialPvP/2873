@@ -1,0 +1,48 @@
+# Autoclick checker
+# Made by Cerial for 2873
+options:
+	# <Config>
+
+	# The CPS cap, if a player's clicks hit above that value it's going to trigger.
+	cpsCap: 16 
+
+	# The prefix of the message
+	prefix: &3Anti&bAutoClicker &8> 
+	
+	# <Permissions>
+
+	# Permission to send autoclicker alerts
+	permission_alert: "autoclicker.alert"
+
+	# Permission to bypass CPS cap
+	permission_bypass: "autoclicker.bypass"
+
+	# Permission to test someone's CPS
+	permission_test: "autoclicker.test"
+
+# Left click autoclicker checker
+on left click:
+	add 1 to {cps.left::%player%}
+	wait 1 second
+	if {cps.left::%player%} >= {@cpsCap}:
+		if player doesn't have permission {@permission_alert}:
+			send "{@prefix} &b%player% &7might be autoclicking with &3%{cps.left::%player%}% (Left) &7CPS." to all players where [input has permission {@permission_alert}]
+		
+		else:
+			stop
+	else:
+		stop
+	delete {cps.left::%player%}
+
+# Right click autoclicker checker
+on right click:
+	add 1 to {cps.right::%player%}
+	wait 1 second
+	if {cps.right::%player%} >= {@cpsCap}:
+		if player doesn't have permission {@permission_alert}:
+			send "{@prefix} &b%player% &7might be autoclicking with &3%{cps.right::%player%}% (Right) &7CPS." to all players where [input has permission {@permission_alert}]
+		
+		else:
+			stop
+	else:
+		stop

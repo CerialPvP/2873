@@ -1,0 +1,104 @@
+# Death messages made by Cerial
+# Since Skript is a dumbass and doesn't want to define player's uuid, we have to set the variables upon players joining.
+# Enjoy ;)
+
+options:
+	# DO NOT CHANGE THESE, THEY ARE THE NAMES FOR THE GUIS.
+	cmenu: "cosmeticsMenu"
+	kmenu: "killMessages"
+
+# DELETE THE ON LOAD THINGY WHEN UR DONE LOADING THE SKRIPT
+on load:
+	loop all players:
+		if {killMsg::%loop-player's uuid%} is not set:
+			set {killMsg::%loop-player's uuid%} to "DEFAULT"
+
+# DONT DELETE THESE ONES
+on join:
+	loop all players:
+		if {killMsg::%loop-player's uuid%} is not set:
+			set {killMsg::%loop-player's uuid%} to "DEFAULT"
+
+on first join:
+	loop all players:
+		if {killMsg::%loop-player's uuid%} is not set:
+			set {killMsg::%loop-player's uuid%} to "DEFAULT"
+
+
+on death of player:
+	if attacker is a player:
+		# put ur kill & death vars here
+		set {_iname} to attacker's held item
+		set {_item} to "%attacker's held item%"
+		replace all " named %attacker's held item's name%" with "" in {_item}
+		set {_item} to "%{_item}%" in snake case
+		if attacker's held item's name contains "<" or ">":
+			set {_illegal} to true
+		
+		if attacker's held item's name is set:
+			set {_name} to "&o%attacker's held item's name%"
+		else:
+			set {_name} to "%{_iname}%" in strict proper case
+		
+		if "%attacker's held item's enchantments%" is "<none>":
+			set {_ienchant} to ""
+		else:
+			set {_ienchant} to "%attacker's held item's enchantments%%nl%"
+			replace all " and " and ", " with nl in {_ienchant}
+		
+		if "%attacker's held item's lore%" is "<none>":
+			set {_lore} to ""
+		else:
+			set {_lore} to "%attacker's held item's lore%"
+			replace all " and " and ", " with nl in {_lore}
+		
+		if {_illegal} = true:
+			set {_ttp} to "<ttp:&cItem name contains illegal characters.>&c[Illegal Characters]<reset>"
+		else:
+			if {_name} = "0 Air":
+				set {_name} to "Fists"
+				set {_item} to "air"
+			set {_ttp} to "<ttp:%{_name}%%nl%&7%{_ienchant}%&5&o%{_lore}%&8minecraft:%{_item}%>&6[%{_name}%&6]<reset>"
+
+		if {deathnick.%victim%} is set:
+			set {_vctm} to {deathnick.%victim%}
+		else:
+			set {_vctm} to "%victim%"
+		
+		if {deathnick.%attacker%} is set:
+			set {_atkr} to {deathnick.%attacker%}
+		else:
+			set {_atkr} to "%attacker%"
+
+		if {killMsg::%attacker's uuid%} = "DEFAULT":
+			set death message to ""
+			if projectile is set:
+				send formatted "&2%{_vctm}% &7was shot by &3%{_atkr}% &7using &6%{_ttp}%" to all players
+			
+			if projectile is not set:
+				send formatted "&2%{_vctm}% &7was killed by &3%{_atkr}% &7using &6%{_ttp}%" to all players
+
+on death of player:
+	if damage was caused by lava:
+		if victim is player:
+			set death message to "&2%victim% &7was killed in lava."
+			stop
+
+	if damage was caused by burning:
+		if victim is a player:
+			set death message to "&2%victim% &7got ##roasted."
+			stop
+	
+	if damage was caused by drown:
+		if victim is a player:
+			set death message to "&2%victim% &7has drowned."
+			stop
+	
+	if damage was caused by starvation:
+		if victim is a player:
+			set death message to "&2%victim% &7didn't know where the nearest store was."
+			stop
+			
+command /debug:
+	trigger:
+		send "%{killMsg::%player's uuid%}%"

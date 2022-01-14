@@ -1,0 +1,539 @@
+# Middlefinger
+# By Cerial
+# DO NOT LEAK OR YOU'RE LITERAL SHIT
+
+# Dependencies:
+# 	Skript (ofc)
+# 	SkQuery Lime
+# 	Skellet
+# 	SkBee
+# The latest versions of those plugins are better.
+
+# Parts of the anticheat are taken from 2 anticheats, and I feel I need to credit them:
+# 	Neon Anticheat
+# 	Bubble Reborn Anticheat
+
+# Configure shit here
+# Where is says [Don't change], do not change that item.
+
+options:
+	# <General Settings>
+
+	# The prefixes of Middlefinger [Don't change]
+	# The regular prefix is for ingame messages, the one with "Console" in it is the one in console
+	prefix: &3&lMiddle&b&lFinger &8»
+	prefix_console: [MiddleFinger]
+
+	# <Version config, do not touch>
+
+	# The version of this skript [Don't change, can trigger version checker]
+	ver: "1.0"
+
+	# The API for Middlefinger to get the version [Don't change]
+	verapi: "https://pastebin.com/raw/LuCYxxjX"
+
+	# The webpage of the skript [Don't change]
+	website: https://example.com
+
+	# <Permissions>
+
+	# The message when someone doesn't have the right permissions
+	noperm: &3&lMiddle&b&lFinger &8» &cYou don't have the required permissions to use this command.
+
+	# The permission to view alerts
+	perm_alert: "middlefinger.alert"
+
+	# The permission to use the /middlefinger command
+	perm_cmd: "middlefinger.cmd"
+
+	# The permission to bypass the anticheat
+	# NOTE: THIS IS NOT RECOMMENDED TO GIVE THIS PERMISSION TO REGULAR PLAYERS
+	perm_bypass: "middlefinger.bypass"
+
+	# <Lag utilities / Violation Settings>
+
+	# Lagback the player if he receives an alert
+	lagback: true
+
+	# Kicks the player once they hit the maximum violations amount in a play session
+	kickplayer: true
+
+	# The maximum amount of session violations until the player gets kicked
+	maxVL: 50
+
+	# If this is true, if the server is lagging, then the anticheat will disable some checks.
+	checkLag: true
+
+	# Maximum TPS that the anticheat will allow before registering it's lagging (example: chunk loading, new chunk loading, player joins, tnt, ect)
+	maxTPS: 21.85
+
+	# Minimum TPS that the anticheat will allow before registering it's lagging (example: chunk loading, new chunk loading, player joins, tnt, ect)
+	minTPS: 18.15
+
+	# The amount of time for the anticheat to stop flagging people if the server is lagging badly.
+	badLagTimer: 6 seconds
+
+	# The amount of time for the anticheat to stop flagging people if the server is lagging slightly.
+	slightLagTimer: 3 seconds
+
+	# <Flag Messages>
+
+	# The flag message for any other reason
+	flagNoCPS: "&3&lMiddle&b&lFinger &8» &3%{_p}% &7has failed &b%{_r}% &8// &7Ping: &b%{_ping}% &8// &7VL: &b%{_vl}%"
+
+	# The flag message for autoclicker flags
+	flagCPS: "&3&lMiddle&b&lFinger &8» &3%{_p}% &7has failed &b%{_r}% &8// &7CPS: &b%{_cps}% &8// &7Ping: &b%{_ping}% &8// &7VL: &b%{_vl}%"
+
+# Version checker
+on load:
+	set {_v} to text from url {@verapi}
+	if {_v} is not set:
+		send "{@prefix} &cI couldn't fetch updates because there is no internet connection." to all players where [input has permission "op"]
+		send "{@prefix_console} I couldn't fetch updates because there is not internet connection." to console
+	
+	else:
+		stop
+
+	if {_v} = {@ver}:
+		send "{@prefix} &aYour version of MiddleFinger is updated!" to all players where [input has permission "op"]
+		send "{@prefix_console} Your version of MiddleFinger is updated!" to console
+	else:
+		set {middlefinger.update} to round(("%{_v}%" parsed as a number-{@ver} parsed as a number)*10)
+		send "{@prefix} &cYou are missing on &6%{middlefinger.update}% &cupdates of MiddleFinger! <link:{@website}>&nClick here to download!<reset>" to all players where [input has permission "op"]
+		send "{@prefix_console} You are missing on %{middlefinger.update}% updates! Link to download: {@website}" to console
+	
+# Deletes variables which are non player related when the server stops
+on skript unload:
+	delete {middlefinger.update}
+	delete {MiddleFinger.LagUtils.ticks}
+	delete {MiddleFinger.LagUtils.Seconds}
+	delete {MiddleFinger.LagUtils.Time}
+	delete {MiddleFinger.LagUtils.Disabler}
+	delete {MiddleFinger.LagUtils.Disabler.Mode}
+	delete {MiddleFinger.LagUtils.TPS}
+
+# Deletes temporary variables which are player related when the player disconnects from the server
+on quit:
+	delete {Counter.Time.%uuid of player%}
+	delete {IsDead.%uuid of player%}
+	delete {Enderpearl.%uuid of player%}
+	delete {Teleport.%uuid of player%}
+	delete {VehicleStatus.%uuid of player%}
+	delete {Vehicle.Exit.%player's uuid%}
+	delete {Attacked.%uuid of player%}
+	delete {Join.Time.%uuid of player%}
+	delete {Gamemode.Change.%uuid of player%}
+	delete {Damage.Time.%uuid of player%}
+	delete {Death.Time.%uuid of player%}
+	delete {Loc.FlightY.%uuid of player%}
+	delete {Count.FlightY.%uuid of player%}
+	delete {Second.FlightY.%uuid of player%}
+	delete {Current.FlightY.%uuid of player%}
+	delete {PacketFlying.%uuid of player%.time}
+	delete {PacketNoFall.%uuid of player%.time}
+	delete {Nofall.Alert.Packet.%uuid of player%}
+	delete {PacketKeepAlive.%uuid of player%.time}
+	delete {Counter.%uuid of player%}
+	delete {Counter.Time.%uuid of player%}
+	delete {Angle.a.%uuid of player%}
+	delete {Counter2.%uuid of player%}
+	delete {CPS.Click.%uuid of player%} 
+	delete {MoveNoFall.%uuid of player%.Counter}
+	delete {Timer.Time.%uuid of player%}
+	delete {Timer.Counter.%uuid of player%}
+	delete {Timer.Count.%uuid of player%}
+	delete {Fastbow.Timer.%uuid of player%}
+	delete {FastEat.Timer.%uuid of player%}
+	delete {Flight.Abilities.%uuid of player%} 
+	delete {Inventory.Invalid.%uuid of player%}
+	delete {CustomPayload.Timer.%uuid of player%}
+	delete {AutoBlock.BlockPlace.%uuid of player%}
+	delete {FastPlace.Timer.%uuid of player%}
+	delete {FastPlace.Count.%player's uuid%}
+	delete {Rotations.Count.%uuid of player%}
+	delete {MultiAura.Count.%uuid of player%}
+	delete {MultiAura.Timer.%uuid of player%}
+	delete {MultiAura.Player.%uuid of player%}
+	delete {MultiAura.Counter.%uuid of player%}
+	delete {Criticals.Counter.%uuid of player%}
+	delete {NoSwing.Count.%uuid of player%}
+	delete {NoSwing.%uuid of player%}
+	delete {InventoryMove.%player's uuid%}
+	delete {InventoryMove.Timer.%player's uuid%}
+	delete {PacketKeepAlive.Timer.%player's uuid%}
+	delete {PacketKeepAlive.Count.%player's uuid%}
+	delete {PacketKeepAlive.Key.%player's uuid%}
+	delete {NoSlowDown.Blocking.%player's uuid%}
+	delete {InventoryMove.Timer.%player's uuid%}
+	delete {NoSlowDown.Place.Timer.%player's uuid%}
+	delete {Teleporting.Timer.%player's uuid%}
+	delete {Bhop.Counter.%player's uuid%}
+	delete {Bhop.Last.%player's uuid%.Y}
+	delete {Bhop.Timer.Counter.%player's uuid%}
+	delete {Bhop.Timer.%player's uuid%}
+	delete {Bhop.Cancelation.%player's uuid%}
+	delete {FlightHover.Pos.Count.%player's uuid%}
+	delete {FlightHover.Pos.Prev.%player's uuid%}
+	delete {FlightHover.Count.%player's uuid%}
+	delete {FlightHover.Prev.%player's uuid%}
+	delete {Flight.OnGround.%player's uuid%}
+	delete {IsMoving.1.%player's uuid%}
+	delete {LagBack.Loc.%player's uuid%}
+	delete {Gamemode.Prev.%player's uuid%}
+	delete {NoSlowDown.Timer.%player's uuid%}
+	delete {FlightHover.Flag.%player's uuid%}
+	delete {AutoBlock.Counter.%player's uuid%}
+	delete {AutoBlock.Timer.%player's uuid%}
+	delete {InventorySimulate.Counter.%player's uuid%}
+	delete {InventorySimulate.Prev.%player's uuid%}
+	delete {CPS.Arm.Click.%player's uuid%}
+	delete {CPS.Counter.%player's uuid%}
+	delete {CPS.Prev.Click.%player's uuid%}
+	delete {CPS.Alert.Counter.%player's uuid%}
+	delete {LastCrit.Counter.%player's uuid%}
+	delete {LastCrit.Packet.%player's uuid%}
+	delete {Aimbot.Rotations.%player's uuid%}
+	delete {Aimbot.Prev.Rotations.y.%player's uuid%}
+	delete {Aimbot.Prev.Rotations.p.%player's uuid%}
+	delete {Bhop.Constant.Counter.%player's uuid%}
+	delete {Bhop.Constant.%player's uuid%}
+
+on command:
+	set {_a} to command
+	if {_a} contains "/gma", "/gm a", "/gamemode a", "/gamemode adventure", "/gm 2" or "/gamemode 2":
+		cancel event
+		send "{@prefix} &cAdventure mode is not recommended for the anticheat."
+		stop
+
+# Reach
+on damage:
+	attacker is player
+	"%damage cause%" != "projectile"
+	"%damage cause%" != "potion"
+	if IsSpecial(attacker):
+		stop
+	if Enderpearl(attacker):
+		stop
+	if IsTeleporting(attacker):
+		stop
+	if attacker's tool is bow or potion:
+		stop
+	if attacker's tool is enchanted with knockback:
+		stop
+	set {_e} to eye location of attacker
+	set {_c} to the distance between {_e} and victim
+	if attacker is sprinting:
+		set {_r} to 4.48
+	else:
+		set {_r} to 4.08
+	set {_a} to eye location of attacker
+	set {_v} to eye location of victim
+	if {_a}'s y-coord > {_v}'s y-coord:
+		add 0.57 to {_r}
+	if {_a}'s y-coord < {_v}'s y-coord:
+		add 0.30 to {_r}
+	if {_a}'s y-coord = {_v}'s y-coord:
+		remove 0.13 from {_r}
+	if difference between {_a}'s y-coord and {_v}'s y-coord > 0.90:
+		if {_a}'s y-coord > {_v}'s y-coord:
+			add 0.33 to {_r}
+	if {_c} >= {_r}:
+		set {_P} to attacker's ping
+		if {_P} is less than 71:
+			alert(attacker,"Reach", 3)
+			stop
+		if {_P} is between 80 and 120:
+			alert(attacker,"Reach", 2)
+			stop
+		if {_P} is between 121 and 200:
+			alert(attacker,"Reach", 1)
+			stop
+		if {_P} is between 201 and 250:
+			alert(attacker,"Reach", 0)
+			stop
+# Tab completions for /middlefinger
+on tab complete of "/middlefinger":
+	set tab completions for position 1 to "help", "violations", "ping" and "clear"
+
+command /middlefinger [<text>] [<offline player>]:
+	permission: {@perm_cmd}
+	permission message: {@noperm}
+	trigger:
+		if arg 1 is not set:
+			send "{@prefix} &bCommands list"
+			send "&eTip ##1: You can use the tab completions in this command."
+			send "&eTip ##2: You can click on the commands to put them in chat."
+			send ""
+			send formatted "&7- <sgt:/middlefinger help><ttp:&eClick to auto-complete!>&3/middlefinger help<reset> &f| &7&oShows you this help menu."
+			send formatted "&7- <sgt:/middlefinger violations (player)><ttp:&eClick to auto-complete!>&3/middlefinger violations (player)<reset> &f| &7&oShows a player's anticheat violations."
+			send formatted "&7- <sgt:/middlefinger ping (player)><ttp:&eClick to auto-complete!>&3/middlefinger ping (player)<reset> &f| &7&oShows a player's ping."
+			send formatted "&7- <sgt:/middlefinger clear (player)><ttp:&eClick to auto-complete!>&3/middlefinger clear (player)<reset> &f| &7&oClear a player's violations."
+			send ""
+		
+		if arg 1 = "help":
+			send "{@prefix} &bCommands list"
+			send "&eTip ##1: You can use the tab completions in this command."
+			send "&eTip ##2: You can click on the commands to put them in chat."
+			send ""
+			send formatted "&7- <sgt:/middlefinger help><ttp:&eClick to auto-complete!>&3/middlefinger help<reset> &f| &7&oShows you this help menu."
+			send formatted "&7- <sgt:/middlefinger violations (player)><ttp:&eClick to auto-complete!>&3/middlefinger violations (player)<reset> &f| &7&oShows a player's anticheat violations."
+			send formatted "&7- <sgt:/middlefinger ping (player)><ttp:&eClick to auto-complete!>&3/middlefinger ping (player)<reset> &f| &7&oShows a player's ping."
+			send formatted "&7- <sgt:/middlefinger clear (player)><ttp:&eClick to auto-complete!>&3/middlefinger clear (player)<reset> &f| &7&oClear a player's violations."
+			send ""
+		
+		if arg 1 = "violations":
+			if arg 2 is set:
+				if {vl::%player's uuid%} is set:
+					send "{@prefix} &e%arg 1% &7currently has &e%{vl::%arg 2's uuid%}% &7violations."
+					stop
+				
+				else:
+					send "{@prefix} &e%arg 1% &7has no violations."
+					stop
+			
+			else:
+				send "{@prefix} &cMissing argument: player"
+				send "&6Usage: &7/middlefinger violations (player)"
+				stop
+			
+		
+		if arg 1 = "ping":
+			if arg 2 is set:
+				send "{@prefix} &e%arg 2%&7's ping is &3%arg 2's ping%ms."
+				stop
+
+			else:
+				send "{@prefix} &cMissing argument: player"
+				send "&6Usage: &7/middlefinger ping (player)"
+				stop
+		
+		if arg 1 = "clear":
+			if arg 2 is set:
+				delete {vl::%player's uuid%}
+				send "{@prefix} &7Cleared &e%arg 2%&7's violations."
+				stop
+			
+			else:
+				send "{@prefix} &cMissing argument: player"
+				send "&6Usage: &7/middlefinger clear (player)"
+				stop
+
+every second:
+	if {MiddleFinger.LagUtils.Disabler} != 0 seconds:
+		remove 1 second from {MiddleFinger.LagUtils.Disabler}
+	else:
+		delete {MiddleFinger.LagUtils.Disabler.Mode}
+	add 1 to {MiddleFinger.LagUtils.Seconds}
+	if {MiddleFinger.LagUtils.Seconds} = 1:
+		set {MiddleFinger.LagUtils.Time} to unix timestamp of now
+	if {MiddleFinger.LagUtils.Seconds} = 2:
+		delete {MiddleFinger.LagUtils.Seconds}
+		set {MiddleFinger.LagUtils.TPS} to 20 / (unix timestamp of now - {MiddleFinger.LagUtils.Time})
+		if {@checkLag} = true:
+			if check [{MiddleFinger.LagUtils.TPS} > {@maxTPS}] or [{MiddleFinger.LagUtils.TPS} < {@minTPS}]:
+				if check [{MiddleFinger.LagUtils.TPS} > 40] or [{MiddleFinger.LagUtils.TPS} < 10]:
+					set {MiddleFinger.LagUtils.Disabler} to {@badLagTimer}
+					set {MiddleFinger.LagUtils.Disabler.Mode} to "E"
+				else:
+					set {MiddleFinger.LagUtils.Disabler} to {@slightLagTimer}
+					set {MiddleFinger.LagUtils.Disabler.Mode} to "C"
+
+# Alert function
+function alert(p: player, r: text, vl: int=0, cps: int=0):
+	if {_p} is not alive:
+		stop
+	
+	if {MiddleFinger.LagUtils.Disabler.Mode} = "E":
+		stop
+	
+	if {MiddleFinger.LagUtils.Disabler.Mode} = "C":
+		if {_r} = "PingSpoof", "Bhop1A", "Bhop2A", "Bhop3A", "Bhop4A", "Bhop5A", "Bhop6A", "Bhop7A", "Bhop8A", "Reach", "Killaura", "NoFall", "InvalidPackets", "Flight", "Timer", "NoRotations", "FastPlace" or "InventoryMove":
+			stop
+	set {_u} to uuid of {_p}
+	set {_ping} to ping of {_p}
+	if check [ping of {_p} <= 100]:
+		set {_color} to "&e"
+	if check [ping of {_p} <= 250]->[ping of {_p} >= 100]:
+		set {_color} to "&6"
+	if check [ping of {_p} >= 250]:
+		set {_color} to "&c"
+	add {_vl} to {vl::%{_u}%}
+	if {_cps} = 0:
+		send {@flagNoCPS} to all players where [input has permission {@perm_alert}]
+	
+	else:
+		send {@flagCPS} to all players where [input has permission {@perm_alert}]
+	
+	if {@lagback} = true:
+		if {_p} doesn't have permission {@perm_bypass}:
+			if "%{_reason}%" = "Flight" or "InvalidPackets" or "NoFall" or "SelfDamage" or "InvalidRotations" or "InvalidInv" or "Timer" or "SelfHurt" or "NoRotations" or "FastPlace" or "Reach" or "InventoryMove" or "Bhop1A" or "Bhop2A" or "Bhop3A" or "Bhop4A" or "Bhop5A" or "Bhop6A" or "Bhop7A" or "Bhop8A":
+				if check [block below {lb.loc::%{_u}%} is air]:
+					remove 1 from {lb.loc::%{_u}%}'s y-coord
+				teleport {_p} to {lb.loc::%{_u}%}
+	
+	wait 1 tick
+	if {@kickplayer} = true:
+		if {_p} doesn't have permission {@perm_bypass}:
+			if {vl::%{_u}%} >= {@maxVL}:
+				console command "/kick %{_p}% -s [MiddleFinger] Reaching maximum amount of violations."
+				stop
+		
+
+# Counters
+every second:
+	loop all players:
+		clear {Counter.Time.%loop-player's uuid%}
+		clear {CPS.Click.%loop-player's uuid%}
+		clear {Timer.Count.%loop-player's uuid%}
+		clear {MoveNoFall.%loop-player's uuid%.Counter}
+		set {LagBack.Loc.%uuid of loop-player%} to location of loop-player
+		set {IsMoving.1.%uuid of loop-player%} to location of loop-player
+		set {Gamemode.Prev.%uuid of loop-player%} to gamemode of loop-player
+
+every 3 second:
+	loop all players:
+		clear {Criticals.Counter.%uuid of loop-player%}
+		clear {Rotations.Count.%uuid of loop-player%}
+
+# Check utils
+on death:
+	victim is player
+	set {dead::%player's uuid%} to true
+	wait 5 ticks
+	set {dead::%player's uuid%} to false
+
+# Death check function
+function isDead(p: player) :: boolean:
+	set {_u} to uuid of {_p}
+	if {dead::%{_u}%} = true:
+		return true
+	
+	else:
+		return false
+
+# Being attacked by player
+on damage:
+	set {Attacked.%uuid of victim%} to true
+	wait 3.25 ticks
+	set {Attacked.%uuid of victim%} to false
+	
+function IsAttacked(p: player) :: boolean:
+	set {_uuid} to uuid of {_p}
+	if {Attacked.%{_uuid}%} = true:
+		return true
+	else:
+		return false
+
+# Distance to ground
+function disToGround(p: player) :: number:
+	loop 256 times:
+		if block loop-numbers below {_p} is not air:
+			set {_a} to loop-numbers
+			remove 1 from {_a}
+			set {_d} to {_p}'s y-coord - {_a}
+			set {_cw} to abs({_d} - floor({_d}))
+			add {_a} to {_cw}
+			return {_cw}
+			exit 1 loop
+	return null
+
+# Flight Y
+on any move:
+	player is not flying
+	if IsSpecial(player):
+		stop
+	if IsDead(player):
+		stop
+	if Enderpearl(player):
+		stop
+	if IsTeleporting(player):
+		stop
+	if IsChanged(player):
+		stop
+	if player's walking speed > 0.21:
+		stop
+	if player is riding:
+		stop
+	set {_A} to difference between y location of player and {Loc.FlightY.%player's uuid%}'s y-coord
+	set {Loc.FlightY.%player's uuid%} to y location of player
+	loop blocks in radius 2 around player:
+		if loop-block is not air:
+			set {Flight.OnGround.%player's uuid%} to now
+		if loop-block is slab or snow layer or carpet or lava or slime block or cobweb or water or vines or stairs or anvil or ladder or Piston or Sticky Piston or Trapdoor or cobblestone wall or mossy cobblestone wall:
+			stop
+#Flight Gravity
+	add 1 to {FlightGravity.Postion.Count.%player's uuid%}
+	if {FlightGravity.Postion.Count.%player's uuid%} = 1:
+		set {FlightGravity.Postion.Prev.%player's uuid%} to {_A}
+	if {FlightGravity.Postion.Count.%player's uuid%} = 2:
+		delete {FlightGravity.Postion.Count.%player's uuid%}
+		if difference between {Death.Time.%player's uuid%} and now > 3 seconds:
+			if difference between {Teleporting.Timer.%player's uuid%} and now > 1.3 seconds:
+				if difference between {Flight.OnGround.%player's uuid%} and now > 0.301 seconds:
+					set {_YPrediction} to {FlightGravity.Postion.Prev.%player's uuid%} * 0.980000190734863
+					if check [abs({_A} - {_YPrediction}) < 0.0783]->[abs({_A} - {_YPrediction}) > -1]:
+						loop all active potions on player:
+							if loop-value contains "Jump":
+								stop
+						alert(player,"Flight", 3)
+#Flight NoMotion OnGround
+	if {_A} = 0:
+		set {_H} to DisToGround(player)
+		add 1 to {FlightHover.Count.%player's uuid%}
+		if {FlightHover.Count.%player's uuid%} = 1:
+			set {FlightHover.Prev.%player's uuid%} to {_H}
+		if {FlightHover.Count.%player's uuid%} = 2:
+			delete {FlightHover.Count.%player's uuid%}
+			loop all blocks in radius 2.15525 around player:
+				if loop-block is not air:
+					stop
+			if {FlightHover.Prev.%player's uuid%} != {_H}:
+				if difference between {Death.Time.%player's uuid%} and now > 3 seconds:
+					if difference between {Damage.Time.%player's uuid%} and now > 0.5 seconds:
+						if difference between {Teleporting.Timer.%player's uuid%} and now > 1.3 seconds:
+							if {_H} > 2:
+								if player is on ground:
+									alert(player,"Flight", 1)
+#Flight Hover
+	if {_A} = 0:
+		set {_G} to DisToGround(player)
+		if difference between {Damage.Time.%player's uuid%} and now > 0.5 seconds:
+			loop all blocks in radius 1.75 around player:
+				if loop-block is not air:
+					set {Flight.OnGround.%player's uuid%} to now
+					stop
+			if difference between {Teleporting.Timer.%player's uuid%} and now > 1.3 seconds:
+				if {_G} > 0.25:
+					if difference between {Flight.OnGround.%player's uuid%} and now > 0.301 seconds:
+						if difference between {Death.Time.%player's uuid%} and now > 3 seconds:
+							alert(player,"Flight", 3)
+#Flight Postive Y
+	if {_A} != 0:
+		add 1 to {FlightHover.Pos.Count.%player's uuid%}
+		if {FlightHover.Pos.Count.%player's uuid%} = 1:
+			set {FlightHover.Pos.Prev.%player's uuid%} to Player's y-coord
+		if {FlightHover.Pos.Count.%player's uuid%} = 2:
+			delete {FlightHover.Pos.Count.%player's uuid%}
+			set {_T} to player's y-coord - {FlightHover.Pos.Prev.%player's uuid%}
+			if {_T} < 0.07:
+				if {_T} > -0.07:
+					if difference between {Death.Time.%player's uuid%} and now > 3 seconds:
+						if difference between {Teleporting.Timer.%player's uuid%} and now > 1.3 seconds:
+							loop all blocks in radius 2 around player:
+								if loop-block is not air:
+									set {Flight.OnGround.%player's uuid%} to now
+									stop
+							if difference between {FlightHover.Flag.%player's uuid%} and now > 0.4 seconds:
+								if difference between {Flight.OnGround.%player's uuid%} and now > 1.25 seconds:
+									loop all active potions on player:
+										if loop-value contains "Jump":
+											stop
+									alert(player,"Flight", 3)
+							set {FlightHover.Flag.%player's uuid%} to now
+#Flight onground ->(Onground in air)
+	if check [{_A} = 0] or [{_A} != 0]:
+		if player is on ground:
+			if difference between {Death.Time.%player's uuid%} and now > 3 seconds:
+				if difference between {Teleporting.Timer.%player's uuid%} and now > 1.3 seconds:
+					if difference between {Flight.OnGround.%player's uuid%} and now > 0.25 seconds:
+						alert(player,"Flight", 3)

@@ -1,0 +1,120 @@
+options:
+	CP: &3&lChat &8»
+	filter: &c&lFiltered
+
+variables:
+	mutechat = false
+
+command /clearchat [<text>]:
+	usage: &eUsage: &6/clearchat &f[-s, -a]
+	permission: chat.clear
+	permission message: &cI'm sorry, but you do not have permission to perform that command.
+	trigger:
+		if arg-1 is not set:
+			if executor is a player:
+				set {p.%player%} to "%player%"
+			else if executor is not a player:
+				set {p.%player%} to "&c&lConsole"
+			loop all players:
+				if loop-player doesn't have permission "chatbypass.clear":
+					loop 300 times:
+						send "" to loop-player
+			send "{@CP} &7The chat was cleared by %{p.%player%}%&7." to all players
+			loop all players:
+				if loop-player has permission "chat.clear":
+					send "&b&lStaff &8» &3%{p.%player%}% &7cleared the chat." to loop-players
+		if arg-1 is set:
+			if arg-1 contains "-s":
+				if executor is a player:
+					set {p.%player%} to "%player%"
+				else if executor is not a player:
+					set {p.%player%} to "&c&lConsole"
+				loop all players:
+					if loop-player doesn't have permission "chatbypass.clear":
+						loop 300 times:
+							send "" to loop-player
+				loop all players:
+					if loop-player has permission "chat.clear":
+						send "&b&lStaff &8» &3%{p.%player%}% &7cleared the chat." to loop-players
+		if arg-1 is set:
+			if arg-1 contains "-a":
+				if executor is a player:
+					set {p.%player%} to "%player%"
+				else if executor is not a player:
+					set {p.%player%} to "&c&lConsole"
+				loop all players:
+					if loop-player doesn't have permission "chatbypass.clear":
+						loop 300 times:
+							send "" to loop-player
+				send "{@CP} &7The chat was cleared&7." to all players
+				loop all players:
+					if loop-player has permission "chat.clear":
+						send "&b&lStaff &8» &3%{p.%player%}% &7cleared the chat." to loop-players
+
+
+command /mutechat [<text>]:
+	usage: &eUsage: &6/mutechat &f[-s, -a]
+	permission: chat.mute
+	permission message: &cI'm sorry, but you do not have permission to perform that command.
+	trigger:
+		if arg-1 is not set:
+			if {mutechat} is true:
+				if executor is a player:
+					set {p.%player%} to "%player%"
+				else if executor is not a player:
+					set {p.%player%} to "&c&lConsole"
+				set {mutechat} to false
+				broadcast "{@CP} &7The chat was unmuted by %{p.%player%}%&7."
+				loop all players:
+					if loop-player has permission "chat.mute":
+						send "&b&lStaff &8» &3%{p.%player%}% &7unmuted the chat." to loop-players
+			else:
+				set {mutechat} to true
+				broadcast "{@CP} &7The chat was muted by %{p.%player%}%&7."
+				loop all players:
+					if loop-player has permission "chat.mute":
+						send "&b&lStaff &8» &3%{p.%player%}% &7muted the chat." to loop-players
+		if arg-1 is set:
+			if arg-1 contains "-s":
+				if {mutechat} is true:
+					if executor is a player:
+						set {p.%player%} to "%player%"
+					else if executor is not a player:
+						set {p.%player%} to "&c&lConsole"
+					set {mutechat} to false
+					loop all players:
+						if loop-player has permission "chat.mute":
+							send "&b&lStaff &8» &3%{p.%player%}% &7unmuted the chat." to loop-players
+				else:
+					set {mutechat} to true
+					loop all players:
+						if loop-player has permission "chat.mute":
+							send "&b&lStaff &8» &3%{p.%player%}% &7muted the chat." to loop-players
+		if arg-1 is set:
+			if arg-1 contains "-a":
+				if {mutechat} is true:
+					if executor is a player:
+						set {p.%player%} to "%player%"
+					else if executor is not a player:
+						set {p.%player%} to "&c&lConsole"
+					set {mutechat} to false
+					broadcast "{@CP} &7The chat was unmuted."
+					loop all players:
+						if loop-player has permission "chat.mute":
+							send "&b&lStaff &8Â» &3%{p.%player%}% &7unmuted the chat." to loop-players
+				else:
+					set {mutechat} to true
+					broadcast "{@CP} &7The chat was muted."
+					loop all players:
+						if loop-player has permission "chat.mute":
+							send "&b&lStaff &8» &3%{p.%player%}% &7muted the chat." to loop-players
+
+on chat:
+	if {mutechat} is true:
+		if player has permission "chatbypass.mute":
+			stop
+		else:
+			cancel event
+			message "{@CP} &cYou cannot chat as the chat is muted."
+
+

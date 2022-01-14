@@ -1,0 +1,107 @@
+# &3&lChat &8»
+command /ping [<player>]:
+	usage: &7Usage: &6/ping <player>
+	trigger:
+		if arg-1 is set:
+			send "&6%arg-1%&7's ping: &6%arg-1's ping%&7." to player
+			stop
+		else:
+			send "&7Your ping: &6%player's ping%&7." to player
+			stop
+
+
+command /cheating <player>:
+	usage: &7Usage: &6/cheating <player>
+	permission: op
+	permission message: &cI'm sorry, but you do not have permission to perform that command.
+	trigger:
+		if arg-1 is set:
+			console command "ban %arg-1% -s Cheating"
+			send "&6" to all players
+			send "&e%arg-1% &7has been removed for &6Cheating&7." to all players
+			send "&6" to all players
+
+command /events:
+	aliases: /event
+	usage: &eUsage: &6/event
+	trigger:
+		open virtual chest with 1 row to player
+		make gui slot 0 of player with red wool named "&6Four Corners" to close:
+			make console execute command "/warp 4corners %player%"
+		make gui slot 1 of player with blue wool named "&9Waterdrop" to close:
+			make console execute command "/warp waterdrop %player%"
+		make gui slot 3 of player with diamond sword named "&a&lNew events comming soon!" to do nothing
+		make gui slot 4 of player with barrier named "&6Spawn" with lore "&7Go to spawn." to close:
+			make console execute command "/esudo %player% spawn"
+		stop
+
+command /hostevent:
+	usage: &eUsage: &6/event
+	permission: event.host
+	permission message: &cI'm sorry, but you do not have permission to perform that command.
+	trigger:
+		open virtual chest with 1 row to player
+		make gui slot 0 of player with red wool named "&6Four Corners" to close:
+			broadcast "&7[&9&lEvents&7] &6%player% &aIs hosting a 4 Corners event! Type /event and click on 4 corners."
+			make console execute command "/warp 4corners %player%"
+		make gui slot 1 of player with blue wool named "&9Waterdrop" to close:
+			broadcast "&7[&9&lEvents&7] &6%player% &aIs hosting a Waterdrop event! Type /event and click on Waterdrop."
+			make console execute command "/warp 4corners %player%"
+		make gui slot 3 of player with diamond sword named "&a&lNew events comming soon!" to close
+		make gui slot 5 of player with barrier named "&cClose this GUI" to close
+		stop
+
+
+on rightclick with ender pearl:
+	{epcd.%player%.lastused} was less than 15 seconds ago:
+		set {_epdiff} to difference between {epcd.%player%.lastused} and now
+		if {_epdiff} is less than 15 seconds:
+			set {_epdiff} to difference between {_epdiff} and 15 seconds
+			message "&eYou cannot throw another enderpearl for &6%{_epdiff}%&e."
+			cancel event
+			stop
+	set {epcd.%player%.lastused} to now
+on consume of enchanted golden apple:
+	{goldapple.%player%.lastused} was less than 60 seconds ago:
+		if player does not have permission "op":
+			set {_epdiff} to difference between {goldapple.%player%.lastused} and now
+			if {_epdiff} is less than 60 seconds:
+				set {_epdiff} to difference between {_epdiff} and 60 seconds
+				message "&eYou cannot eat another Enchanted Golden Apple for &6%{_epdiff}%&e."
+				cancel event
+				stop
+		set {goldapple.%player%.lastused} to now
+
+
+variables:
+	{tttjoins} = 1758
+
+on first join:
+	add 1 to {tttjoins}
+	send "&7Welcome %player% &7to &3&l28&b&l73&7! &8(&6##%{tttjoins}%&8)" to all players
+	wait 10 ticks
+	teleport player to {spawn}
+
+command /joins:
+	usage: &7Usage: &6/joins
+	trigger:
+		send "&7There has been &6%{tttjoins}% &7unique joins to &3&l28&b&l73&7."
+
+
+
+
+on npc right click:
+	if npc name is "&6&lNavigation":
+		open virtual chest with 1 row with name "&3&l28&b&l73 &6Navigation / Help" to player
+		play sound "random.orb" with volume 100 and pitch 3 at player for player
+		wait 1 tick
+		format gui slot 2 of player with paper with name "&3Rules" with lore "&7Click here to check out the server rules" and "&7You will need to follow these" and "&cor you will be punished." to close:
+			player command "rules"
+		format gui slot 3 of player with grass block with name "&3Info" with lore "&7Click here to learn stuff about 2873" to close:
+			send "&3&l28&b&l73%nl%&62873 was released to the public in &aMarch 2020&6.%nl%&62873 is a KitPVP server developed by &aMarblePlane2873 &6and &acyro_hairbrush&6.%nl%&6Thanks to the awesome audience for giving feedbacks and helping us making our server better.%nl%&6This server does &cnot &6include any microtransactions with any real money. It is all done with &ain-game money &6that you can get from &agiveaways &6and &aplaying&6.%nl%&6If you have any other questions, try asking one of our &aStaff Members&6."
+		format gui slot 4 of player with blue wool with name "&9Discord" with lore "&7Click here to join our Discord Server" and "&7We do lots of giveaways" to close:
+			player command "discord"
+		format gui slot 5 of player with iron sword with name "&3Kits" with lore "&7Click here to open kits menu." to close:
+			player command "kits"
+	if npc name is "&6&lShop":
+		player command "/shop"

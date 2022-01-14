@@ -1,0 +1,206 @@
+# NEW RANK PRICES
+# vip: 5k
+# elite: 10k
+# supreme: 15k
+# pro: 20k
+# god: 25k
+# king: 50k
+
+variables:
+	{gift.Pending::%player%} = false
+
+command /gift <player>:
+	usage: &6Usage: &7/gift <player>
+	trigger:
+		if executor is a player:
+			if arg 1 is player:
+				send "&cYou can't gift yourself a rank."
+				stop
+			
+			if {gift.pending::%arg 1%} = true:
+				send "&cThat player already has a pending gift."
+				stop
+
+			else:
+				set {gifted::%player%} to arg 1
+				gift(player, {gifted::%player%})
+
+		else:
+			send "&cOnly players can gift ranks."
+			stop
+
+function gift(p: player, t: player):
+	set metadata tag "gift" of {_p} to chest inventory with 2 rows named "&7Gift rank to &6%{_gftd}%"
+	set slot 1 of metadata tag "gift" of {_p} to lime wool named "&aVIP" with lore "&7Click to see perks"
+	set slot 2 of metadata tag "gift" of {_p} to pink wool named "&dElite" with lore "&7Click to see perks"
+	set slot 3 of metadata tag "gift" of {_p} to blue wool with name "&9Supreme" with lore "&7Click to see perks"
+	set slot 4 of metadata tag "gift" of {_p} to orange wool with name "&6Pro" with lore "&7Click to see perks"
+	set slot 5 of metadata tag "gift" of {_p} to cyan wool with name "&9&lGod" with lore "&7Click to see perks"
+	set slot 6 of metadata tag "gift" of {_p} to gold ingot with name "&6&lKing &7(TOP RANK)" with lore "&7Click to see perks"
+	open (metadata tag "gift" of {_p}) to {_p}
+
+on inventory click:
+	if event-inventory = (metadata tag "gift" of player):
+		cancel event
+		if index of event-slot = 1:
+			close inventory of player
+			rankPerks(player, {gifted::%player%}, "VIP")
+		if index of event-slot = 2:
+			close inventory of player
+			rankPerks(player, {gifted::%player%}, "Elite")
+		if index of event-slot = 3:
+			close inventory of player
+			rankPerks(player, {gifted::%player%}, "Supreme")
+		if index of event-slot = 4:
+			close inventory of player
+			rankPerks(player, {gifted::%player%}, "Pro")
+		if index of event-slot = 5:
+			close inventory of player
+			rankPerks(player, {gifted::%player%}, "God")
+		if index of event-slot = 6:
+			close inventory of player
+			rankPerks(player, {gifted::%player%}, "King")
+		
+
+function rankPerks(p: player, gftd: player, rank: text):
+	if {_rank} = "VIP":
+		set metadata tag "rankperks.vip" of {_p} to chest inventory with 2 rows named "&7Rank perks of &aVIP"
+		set slot 4 of metadata tag "rankperks.vip" of {_p} to paper named "&aVIP &eRank Perks:" with lore "&7[&aVIP&7] &7Prefix", "&aLime &7name" and "&7Access to all default kits & kit Donator" and "&7Access to a special donator PvP Warp" and "&aCost: &6$5K"
+		set slot 12, 13 and 14 of metadata tag "rankperks.vip" of {_p} to lime wool named "&aPurchase Gift"
+		open (metadata tag "rankperks.vip" of {_p}) to {_p}
+	if {_rank} = "Elite":
+		set metadata tag "rankperks.elite" of {_p} to chest inventory with 2 rows named "&7Rank perks of &dElite"
+		set slot 4 of metadata tag "rankperks.elite" of {_p} to paper named "&dElite &eRank Perks:" with lore "&7[&dElite&7] &7Prefix", "&dPink &7name" and "&7Access to all default kits & kit Donator" and "&7Access to a special donator PvP Warp" and "&aCost: &6$10K"
+		set slot 12, 13 and 14 of metadata tag "rankperks.elite" of {_p} to lime wool named "&aPurchase Gift"
+		open (metadata tag "rankperks.elite" of {_p}) to {_p}
+	if {_rank} = "Supreme":
+		set metadata tag "rankperks.supreme" of {_p} to chest inventory with 2 rows named "&7Rank perks of &dElite"
+		set slot 4 of metadata tag "rankperks.supreme" of {_p} to paper named "&7[&9Supreme&7] &7Prefix" with lore "&9Blue &7name" and "&7Access to all default kits & kit Donator" and "&7Access to a special donator PvP Warp" and "&7Access to /ec (Enderchest)" and "&aCost: &6$15K"
+		set slot 12, 13 and 14 of metadata tag "rankperks.supreme"  of {_p} to lime wool named "&aPurchase Gift"
+		open (metadata tag "rankperks.supreme" of {_p}) to {_p}
+	if {_rank} = "Pro":
+		set metadata tag "rankperks.pro" of {_p} to chest inventory with 2 rows named "&7Rank perks of &dElite"
+		set slot 4 of metadata tag "rankperks.pro" of {_p} to paper named "&7[&6Pro&7] &7Prefix" with lore "&6Gold &7name" and "&7Access to all default kits & kit Donator" and "&7Access to a special donator PvP Warp" and "&7Access to /ec (Enderchest)" and "&aCost: &6$20K"
+		set slot 12, 13 and 14 of metadata tag "rankperks.pro" of {_p} to lime wool named "&aPurchase Gift"
+		open (metadata tag "rankperks.pro" of {_p}) to {_p}
+	if {_rank} = "God":
+		set metadata tag "rankperks.god" of {_p} to chest inventory with 2 rows named "&7Rank perks of &dElite"
+		set slot 4 of metadata tag "rankperks.god" of {_p} to paper named "&9&lGod &eRank Perks:" with lore "&3[&9&lGod&3] &7Prefix", "&6Gold &7name" and "&7Access to ALL kits" and "&7Access to /ec (enderchest)" and "&7Access to a special donator PvP Warp" and "Access to /invsee" and "&aCost: &6$25K"
+		set slot 12, 13 and 14 of metadata tag "rankperks.god" of {_p} to lime wool named "&aPurchase Gift"
+		open (metadata tag "rankperks.god" of {_p}) to {_p}
+	if {_rank} = "King":
+		set metadata tag "rankperks.king" of {_p} to chest inventory with 2 rows named "&7Rank perks of &dElite"
+		set slot 4 of metadata tag "rankperks.king" of {_p} to paper named "&e&l[&6&lKing&e&l] &7Prefix" with lore "&5&lBold Purple &7name" and "&7Access to ALL kits" and "&7Access to /ec (enderchest)" and "&7Access to a special donator PvP Warp" and "Access to /invsee" and "&aCost: &6$50K"
+		set slot 12, 13 and 14 of metadata tag "rankperks.king" of {_p} to lime wool named "&aPurchase Gift"
+		open (metadata tag "rankperks.king" of {_p}) to {_p}
+	
+
+on inventory click:
+	if event-inventory = (metadata tag "rankperks.vip" of player):
+		cancel event
+		if index of event-slot = 12, 13 or 14:
+			close inventory of player
+			purchaseGift(player, {gifted::%player%}, "VIP")
+	
+	if event-inventory = (metadata tag "rankperks.elite" of player):
+		cancel event
+		if index of event-slot = 12, 13 or 14:
+			close inventory of player
+			purchaseGift(player, {gifted::%player%}, "Elite")
+	
+	if event-inventory = (metadata tag "rankperks.supreme" of player):
+		cancel event
+		if index of event-slot = 12, 13 or 14:
+			close inventory of player
+			purchaseGift(player, {gifted::%player%}, "Supreme")
+
+	if event-inventory = (metadata tag "rankperks.pro" of player):
+		cancel event
+		if index of event-slot = 12, 13 or 14:
+			close inventory of player
+			purchaseGift(player, {gifted::%player%}, "Pro")
+
+	if event-inventory = (metadata tag "rankperks.god" of player):
+		cancel event
+		if index of event-slot = 12, 13 or 14:
+			close inventory of player
+			purchaseGift(player, {gifted::%player%}, "God")
+
+	if event-inventory = (metadata tag "rankperks.king" of player):
+		cancel event
+		if index of event-slot = 12, 13 or 14:
+			close inventory of player
+			purchaseGift(player, {gifted::%player%}, "King")
+
+function purchaseGift(p: player, gftd: player, rank: text):
+	if {_rank} = "VIP":
+		set metadata tag "purchasegift.vip" of {_p} to chest inventory with 1 row named "&7Confirm gift for &6%{_gftd}%"
+		set slot 0, 1, 2, 4, 6, 7 and 8 of metadata tag "purchasegift.vip" of {_p} to gray stained glass pane named "&6"
+		set slot 3 of metadata tag "purchasegift.vip" of {_p} to lime stained glass pane named "&aConfirm" with lore "&6Your balance won't change until &3%{_gftd}% &6accepts the gift."
+		set slot 5 of metadata tag "purchasegift.vip" of {_p} to red stained glass pane named "&cCancel" with lore "&6Cancels the gift."
+		open (metadata tag "purchasegift.vip" of {_p}) to {_p}
+	if {_rank} = "Elite":
+		set metadata tag "purchasegift.elite" of {_p} to chest inventory with 1 row named "&7Confirm gift for &6%{_gftd}%"
+		set slot 0, 1, 2, 4, 6, 7 and 8 of metadata tag "purchasegift.elite" of {_p} to gray stained glass pane named "&6"
+		set slot 3 of metadata tag "purchasegift.elite" of {_p} to lime stained glass pane named "&aConfirm" with lore "&6Your balance won't change until &3%{_gftd}% &6accepts the gift."
+		set slot 5 of metadata tag "purchasegift.elite" of {_p} to red stained glass pane named "&cCancel" with lore "&6Cancels the gift."
+		open (metadata tag "purchasegift.elite" of {_p}) to {_p}
+	if {_rank} = "Supreme":
+		set metadata tag "purchasegift.supreme" of {_p} to chest inventory with 1 row named "&7Confirm gift for &6%{_gftd}%"
+		set slot 0, 1, 2, 4, 6, 7 and 8 of metadata tag "purchasegift.supreme" of {_p} to gray stained glass pane named "&6"
+		set slot 3 of metadata tag "purchasegift.supreme" of {_p} to lime stained glass pane named "&aConfirm" with lore "&6Your balance won't change until &3%{_gftd}% &6accepts the gift."
+		set slot 5 of metadata tag "purchasegift.supreme" of {_p} to red stained glass pane named "&cCancel" with lore "&6Cancels the gift."
+		open (metadata tag "purchasegift.supreme" of {_p}) to {_p}
+	if {_rank} = "Pro":
+		set metadata tag "purchasegift.pro" of {_p} to chest inventory with 1 row named "&7Confirm gift for &6%{_gftd}%"
+		set slot 0, 1, 2, 4, 6, 7 and 8 of metadata tag "purchasegift.pro" of {_p} to gray stained glass pane named "&6"
+		set slot 3 of metadata tag "purchasegift.pro" of {_p} to lime stained glass pane named "&aConfirm" with lore "&6Your balance won't change until &3%{_gftd}% &6accepts the gift."
+		set slot 5 of metadata tag "purchasegift.pro" of {_p} to red stained glass pane named "&cCancel" with lore "&6Cancels the gift."
+		open (metadata tag "purchasegift.pro" of {_p}) to {_p}
+	if {_rank} = "God":
+		set metadata tag "purchasegift.god" of {_p} to chest inventory with 1 row named "&7Confirm gift for &6%{_gftd}%"
+		set slot 0, 1, 2, 4, 6, 7 and 8 of metadata tag "purchasegift.god" of {_p} to gray stained glass pane named "&6"
+		set slot 3 of metadata tag "purchasegift.god" of {_p} to lime stained glass pane named "&aConfirm" with lore "&6Your balance won't change until &3%{_gftd}% &6accepts the gift."
+		set slot 5 of metadata tag "purchasegift.god" of {_p} to red stained glass pane named "&cCancel" with lore "&6Cancels the gift."
+		open (metadata tag "purchasegift.god" of {_p}) to {_p}
+	if {_rank} = "King":
+		set metadata tag "purchasegift.king" of {_p} to chest inventory with 1 row named "&7Confirm gift for &6%{_gftd}%"
+		set slot 0, 1, 2, 4, 6, 7 and 8 of metadata tag "purchasegift.god" of {_p} to gray stained glass pane named "&6"
+		set slot 3 of metadata tag "purchasegift.king" of {_p} to lime stained glass pane named "&aConfirm" with lore "&6Your balance won't change until &3%{_gftd}% &6accepts the gift."
+		set slot 5 of metadata tag "purchasegift.king" of {_p} to red stained glass pane named "&cCancel" with lore "&6Cancels the gift."
+		open (metadata tag "purchasegift.king" of {_p}) to {_p}
+
+on inventory click:
+	if event-inventory = (metadata tag "purchasegift.vip" of player):
+		cancel event
+		if index of event-slot = 3:
+			close inventory of player
+			set {gifter::%{gifted::%player%}%} to player
+			set {gift.Rank::%{gifted::%player%}%} to "VIP"
+			set {gift.pending::%{gifted::%player%}%} to true
+			send "&aYou have sent a gift request to &6%{gifted::%player%}%&a."
+			send "&c&lNOTE: Your balance ONLY changes when &6%{gifted::%player%}% &c&laccepts the gift."
+			
+			giftMelody({gifted::%player%})
+			send "&6" to arg 1
+			send "&e%player% &6wants to gift you &aVIP &6rank!" to arg 1
+			send formatted "<cmd:/giftrequest accept><ttp:&aClick to accept the gift!>&a[Accept]<reset> <cmd:/giftrequest deny><ttp:&cClick to deny the gift!>&c[Deny]<reset>" to arg 1
+			send "&6" to arg 1
+
+function giftMelody(p: player):
+	play sound "block.note_block.harp" with volume 100 with pitch 0.7 to {_p}
+
+command /giftrequest <text>:
+	trigger:
+		if arg 1 = "true":
+			if {gift.pending::%player%} is set:
+				if {gift.Rank::%player%} = "VIP":
+					set {gift.pending::%player%} to false
+					clear {gift.Rank::%player%}
+					console command "/eco remove %{gifter::%player%}% 5000"
+					console command "/lp user %player% parent set vip"
+	
+command /unsetgift [<player>]:
+	trigger:
+		set {gift.pending::%arg 1%} to false
+		clear {gift.Rank::%arg 1%}

@@ -1,0 +1,51 @@
+# Leaderboard Skript
+# Made by Cerial
+# you need skript-holo & MorkazSk btw
+
+variables:
+	{lb.Kills} = false
+
+command /makeholo [<text>]:
+	permission: op
+	permission message: whatever # change this pls
+	trigger:
+		if arg 1 = "kills":
+			if {lb.Kills} = false:
+				set {lb.Kills} to true
+				send "&eMaking the kills leaderboard..."
+				wait 1 second
+				create a new hologram with line "&bLeaderboards &7- &cKills" that follow player's offset by direction 2.5 meters above
+				wait 0.5 seconds
+				append line "&7" to the created hologram
+				wait 0.5 seconds
+				set {_top::*} to sorted {kills4::*} from highest to lowest with format "&7##@index &6&n@value kills"
+				set {_loopnum} to 0
+				loop 10 times:
+					add 1 to {_loopnum}
+					add "%{_top::%{_loopnum}%}%" to {lb::*}
+				
+				wait 0.5 seconds
+				set {_loopnum} to 0
+				loop 10 times:
+					add 1 to {_loopnum}
+					append line "%{lb::%{_loopnum}%}%" to the created hologram
+
+				clear {_loopnum}
+
+function refreshlb():
+	set {_top::*} to sorted {kills4::*} from highest to lowest with format "&7##@index &6&n@value kills"
+	set {_loopnum} to 0
+	loop 10 times:
+		add 1 to {_loopnum}
+		add "%{_top::%{_loopnum}%}%" to {lb::*}
+	
+	clear {_loopnum}
+	wait 0.5 seconds
+	set {_loopnum} to 3
+	loop 10 times:
+		add 1 to {_loopnum}
+		set line {_loopnum} of hologram {lb.Kills} to "%{lb::%{_loopnum}%}%"
+	clear {_loopnum}
+
+on death of player:
+	refreshlb()

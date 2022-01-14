@@ -1,0 +1,79 @@
+#by miskin
+#for 2873
+#version 2.1
+command /kits:
+	aliases: /kit
+	usage: &7Usage: &6/kits
+	trigger:
+		#--------------------------------dont touch or bad--------------------------------
+		open virtual chest with 6 rows with name "&aKits" to player
+		play sound "random.orb" with volume 100 and pitch 1 at player for player
+		wait 1 tick
+		format gui slot 0 of player with red glass pane named "&c&l*" to do nothing
+		format gui slot 1 of player with orange glass pane with name "&6&l*" to do nothing
+		format gui slot 2 of player with yellow glass pane with name "&e&l*" to do nothing
+		format gui slot 3 of player with green glass pane with name "&a&l*" to do nothing
+		format gui slot 4 of player with cyan glass pane with name "&3&l*" to do nothing
+		format gui slot 5 of player with blue glass pane with name "&1&l*" to do nothing
+		format gui slot 6 of player with magenta glass pane with name "&d&l*" to do nothing
+		format gui slot 7 of player with purple glass pane with name "&5&l*" to do nothing
+		format gui slot 8 of player with red glass pane with name "&c&l*" to do nothing
+		format gui slot 9 of player with orange glass pane with name "&6&l*" to do nothing
+		format gui slot 10 of player with yellow glass pane with name "&e&l*" to do nothing
+		format gui slot 11 of player with green glass pane with name "&a&l*" to do nothing
+		format gui slot 12 of player with cyan glass pane with name "&3&l*" to do nothing
+		format gui slot 13 of player with blue glass pane with name "&1&l*" to do nothing
+		format gui slot 14 of player with magenta glass pane with name "&d&l*" to do nothing
+		format gui slot 15 of player with purple glass pane with name "&5&l*" to do nothing
+		format gui slot 16 of player with red glass pane with name "&c&l*" to do nothing
+		format gui slot 17 of player with orange glass pane with name "&6&l*" to do nothing
+		format gui slot 18 of player with yellow glass pane with name "&e&l*" to do nothing
+		format gui slot 19 of player with green glass pane with name "&a&l*" to do nothing
+		format gui slot 20 of player with cyan glass pane with name "&3&l*" to do nothing
+		format gui slot 21 of player with blue glass pane with name "&1&l*" to do nothing
+		format gui slot 22 of player with magenta glass pane with name "&d&l*" to do nothing
+		format gui slot 23 of player with purple glass pane with name "&5&l*" to do nothing
+		format gui slot 24 of player with red glass pane with name "&c&l*" to do nothing
+		format gui slot 25 of player with orange glass pane with name "&6&l*" to do nothing
+		format gui slot 26 of player with yellow glass pane with name "&e&l*" to do nothing
+		format gui slot 27 of player with green glass pane with name "&a&l*" to do nothing
+		format gui slot 28 of player with cyan glass pane with name "&3&l*" to do nothing
+		format gui slot 29 of player with blue glass pane with name "&1&l*" to do nothing
+		format gui slot 30 of player with magenta glass pane with name "&d&l*" to do nothing
+		format gui slot 31 of player with purple glass pane with name "&5&l*" to close
+		format gui slot 32 of player with red glass pane with name "&c&l*" to do nothing
+		format gui slot 33 of player with orange glass pane with name "&6&l*" to do nothing
+		format gui slot 34 of player with yellow glass pane with name "&e&l*" to do nothing
+		format gui slot 35 of player with green glass pane with name "&a&l*" to do nothing
+		format gui slot 36 of player with cyan glass pane with name "&3&l*" to do nothing
+		format gui slot 37 of player with blue glass pane with name "&1&l*" to do nothing
+		format gui slot 38 of player with magenta glass pane named "&d&l*" to do nothing
+		format gui slot 39 of player with purple glass pane with name "&5&l*" to do nothing
+		format gui slot 40 of player with red glass pane with name "&c&l*" to do nothing
+		format gui slot 41 of player with orange glass pane with name "&6&l*" to do nothing
+		format gui slot 42 of player with yellow glass pane with name "&e&l*" to do nothing
+		format gui slot 43 of player with green glass pane with name "&a&l*" to do nothing
+		format gui slot 44 of player with cyan glass pane with name "&3&l*" to do nothing
+		#
+		#
+		# now you can touch pog
+		#
+		#
+		format gui slot 13 of player with iron sword with name "&bPvP" with lore "&2Click here to equip kit &bPvP&2." and "&2You may claim this kit every &620 seconds&2." to close:
+			player command "/kit pvp"
+			play sound "random.bowhit" with volume 100 and pitch 1 at player for player
+		format gui slot 15 of player with bow with name "&bArcher" with lore "&2Click here to equip kit &bArcher&2." and "&2You may claim this kit every &630 minutes&2." to close:
+			player command "/kit archer"
+			play sound "random.bowhit" with volume 100 and pitch 1 at player for player
+		format gui slot 29 of player with diamond helmet with name "&bDaily" with lore "&2Click here to equip kit &bDaily&2." and "&2You may claim this kit every &624 hours&2." to close:
+			player command "/kit daily"
+			play sound "random.bowhit" with volume 100 and pitch 1 at player for player
+		if player has permission "essentials.kits.donator":
+			format gui slot 31 of player with emerald with name "&bDonator" with lore "&2Click here to equip kit &bDonator&2." and "&2You may claim this kit every &630 minutes&2." and "&cYou will need VIP and up to claim this kit." to close:
+				player command "/kit donator"
+				play sound "random.bowhit" with volume 100 and pitch 1 at player for player
+		else:
+			format gui slot 31 of player with purple glass pane with name "&5&l*" to do nothing
+		format gui slot 33 of player with stone with name "&b" with lore "&2Click here to equip kit &b" and "&2You may claim this kit every&6" to close:
+			player command "/kit"
+			play sound "random.bowhit" with volume 100 and pitch 1 at player for player

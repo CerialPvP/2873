@@ -1,0 +1,125 @@
+command /rank <offlineplayer> [<text>] [<text>]:
+	usage: &7Usage: &6/rank <player> <rank> [time]
+	permission: ranks.use
+	permission message: &cI'm sorry, but you do not have permission to perform this command.
+	trigger:
+		if arg-1 is set:
+			if arg-2 is "default" or "non":
+				if arg-3 is not set:
+					send "&6Granting &e%arg-1% &6the &7Default &6rank..."
+					execute console command "lp user %arg-1% parent set default"
+				if arg-3 is set:
+					send "&6Granting &e%arg-1% &6the &7Default &6rank for &f%arg-3%&6..."
+					execute console command "lp user %arg-1% parent addtemp default %arg-3%"
+			if arg-2 is "vip":
+				if arg-3 is not set:
+					send "&6Granting &e%arg-1% &6the &aVIP &6rank..."
+					execute console command "lp user %arg-1% parent set vip"
+				if arg-3 is set:
+					send "&6Granting &e%arg-1% &6the &aVIP &6rank for &f%arg-3%&6..."
+					execute console command "lp user %arg-1% parent addtemp vip %arg-3%"
+			if arg-2 is "elite":
+				if arg-3 is not set:
+					send "&6Granting &e%arg-1% &6the &dElite &6rank..."
+					execute console command "lp user %arg-1% parent set elite"
+				if arg-3 is set:
+					send "&6Granting &e%arg-1% &6the &dElite &6rank for &f%arg-3%&6..."
+					execute console command "lp user %arg-1% parent addtemp elite %arg-3%"
+			if arg-2 is "supreme":
+				if arg-3 is not set:
+					send "&6Granting &e%arg-1% &6the &9Supreme &6rank..."
+					execute console command "lp user %arg-1% parent set supreme"
+				if arg-3 is set:
+					send "&6Granting &e%arg-1% &6the &9Supreme &6rank for &f%arg-3%&6..."
+					execute console command "lp user %arg-1% parent addtemp supreme %arg-3%"
+			if arg-2 is "pro":
+				if arg-3 is not set:
+					send "&6Granting &e%arg-1% &6the Pro &6rank..."
+					execute console command "lp user %arg-1% parent set pro"
+				if arg-3 is set:
+					send "&6Granting &e%arg-1% &6the Pro &6rank for &f%arg-3%&6..."
+					execute console command "lp user %arg-1% parent addtemp default %arg-3%"
+			if arg-2 is "god":
+				if arg-3 is not set:
+					send "&6Granting &e%arg-1% &6the &9&lGod &6rank..."
+					execute console command "lp user %arg-1% parent set god"
+				if arg-3 is set:
+					send "&6Granting &e%arg-1% &6the &9&lGod &6rank for &f%arg-3%&6..."
+					execute console command "lp user %arg-1% parent addtemp god %arg-3%"
+			if arg-2 is "king" or "top":
+				if arg-3 is not set:
+					send "&6Granting &e%arg-1% &6the &e&lKing &6rank..."
+					execute console command "lp user %arg-1% parent set king"
+				if arg-3 is set:
+					send "&6Granting &e%arg-1% &6the &e&lKing &6rank for &f%arg-3%&6..."
+					execute console command "lp user %arg-1% parent addtemp king %arg-3%"
+			if arg-2 is "twitch":
+				if arg-3 is not set:
+					send "&6Granting &e%arg-1% &6the &5&lTwitch &6rank..."
+					execute console command "lp user %arg-1% parent set twitch"
+				if arg-3 is set:
+					send "&6Granting &e%arg-1% &6the &5&lTwitch &6rank for &f%arg-3%&6..."
+					execute console command "lp user %arg-1% parent addtemp twitch %arg-3%"
+			if arg-2 is "youtube" or "yt":
+				if arg-3 is not set:
+					send "&6Granting &e%arg-1% &6the &f&lYou&c&lTube &6rank..."
+					execute console command "lp user %arg-1% parent set youtube"
+				if arg-3 is set:
+					send "&6Granting &e%arg-1% &6the &f&lYou&c&lTube &6rank for &f%arg-3%&6..."
+					execute console command "lp user %arg-1% parent addtemp youtube %arg-3%"
+			if arg-2 is "trainee" or "trial":
+				if arg-3 is not set:
+					send "&6Granting &e%arg-1% &6the &eTrainee &6rank..."
+					execute console command "lp user %arg-1% parent set trainee"
+				if arg-3 is set:
+					send "&6Granting &e%arg-1% &6the &9&lGod &eTrainee for &f%arg-3%&6..."
+					execute console command "lp user %arg-1% parent addtemp trainee %arg-3%"
+			if arg-2 is "builder":
+				if arg-3 is not set:
+					send "&6Granting &e%arg-1% &6the &2&oBuilder &6rank..."
+					execute console command "lp user %arg-1% parent set builder"
+				if arg-3 is set:
+					send "&6Granting &e%arg-1% &6the &2&oBuilder &6rank for &f%arg-3%&6..."
+					execute console command "lp user %arg-1% parent addtemp builder %arg-3%"
+			if arg-2 is "mod":
+				if arg-3 is not set:
+					send "&6Granting &e%arg-1% &6the &5Mod &6rank..."
+					execute console command "lp user %arg-1% parent set mod"
+				if arg-3 is set:
+					send "&6Granting &e%arg-1% &6the &5Mod &6rank for &f%arg-3%&6..."
+					execute console command "lp user %arg-1% parent addtemp mod %arg-3%"
+			if arg-2 is "smod" or "senior" or "s-mod":
+				if arg-3 is not set:
+					send "&6Granting &e%arg-1% &6the &5&oSenior-Mod &6rank..."
+					execute console command "lp user %arg-1% parent set s-mod"
+				if arg-3 is set:
+					send "&6Granting &e%arg-1% &6the &5&oSenior-Mod &6rank for &f%arg-3%&6..."
+					execute console command "lp user %arg-1% parent addtemp s-mod %arg-3%"
+			if arg-2 is "admin":
+				if arg-3 is not set:
+					send "&6Granting &e%arg-1% &6the &cAdmin &6rank..."
+					execute console command "lp user %arg-1% parent set admin"
+				if arg-3 is set:
+					send "&6Granting &e%arg-1% &6the &cAdmin &6rank for &f%arg-3%&6..."
+					execute console command "lp user %arg-1% parent addtemp admin %arg-3%"
+			if arg-2 is "developer" or "dev":
+				if arg-3 is not set:
+					send "&6Granting &e%arg-1% &6the &b&lDeveloper &6rank..."
+					execute console command "lp user %arg-1% parent set developer"
+				if arg-3 is set:
+					send "&6Granting &e%arg-1% &6the &b&lDeveloper &6rank for &f%arg-3%&6..."
+					execute console command "lp user %arg-1% parent addtemp developer %arg-3%"
+			if arg-2 is "manager":
+				if arg-3 is not set:
+					send "&6Granting &e%arg-1% &6the &c&lManager &6rank..."
+					execute console command "lp user %arg-1% parent set manager"
+				if arg-3 is set:
+					send "&6Granting &e%arg-1% &6the &c&lManager &6rank for &f%arg-3%&6..."
+					execute console command "lp user %arg-1% parent addtemp manager %arg-3%"
+			if arg-2 is "owner":
+				if arg-3 is not set:
+					send "&6Granting &e%arg-1% &6the &4Owner &6rank..."
+					execute console command "lp user %arg-1% parent set owner"
+				if arg-3 is set:
+					send "&6Granting &e%arg-1% &6the &4Owner &6rank for &f%arg-3%&6..."
+					execute console command "lp user %arg-1% parent addtemp owner %arg-3%"

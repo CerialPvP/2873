@@ -1,0 +1,37 @@
+on left click:
+	add 1 to {cps::%player%}
+	wait 1 second
+	if {cps::%player%} >= 16:
+		set {_cps} to {cps::%player%}
+		add 1 to {cps.vl::%player%}
+		loop all players:
+			if loop-player has permission "anc.notify":
+				send "&c&lANC &8» &6%player% &7might be using an auto-clicker at &d%{_cps}%&7 CPS. VL: &6%{cps.vl::%player%}%&7." to loop-player
+		delete {cps::%player%}
+	else:
+		delete {cps::%player%}
+
+
+
+on damage:
+	if attacker is a player:
+		if victim is a player:
+			if attacker's gamemode is survival or adventure:
+				if victim's gamemode is not spectator:
+					if distance between attacker and victim is greater than 4.5:
+						damage was caused by a projectile:
+							stop
+						else:
+							add 1 to {reach::%attacker's uuid%}
+							loop all players:
+								if loop-player has permission "anc.notify":
+									send "&c&lANC &8» &6%attacker% &7might be using reach at &d%distance between attacker and victim% &7blocks. VL &6%{reach::%attacker%}%&7." to loop-players
+
+
+on unload:
+	loop all players:
+		delete {reach::%loop-players%}
+		delete {cps.vl::%loop-players%}
+	loop all offline players:
+		delete {reach::%loop-playesr%}
+		delete {cps.vl::%loop-players%}

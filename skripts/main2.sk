@@ -1,0 +1,492 @@
+command /bc <text>:
+	aliases: /broadcast, /essentials:bc, /essentials:broadcast
+	usage: &7Usage: &6/bc <text>
+	permission: essentials.broadcast
+	permission message: &cI'm sorry, but you do not have permission to perform this command.
+	trigger:
+		if arg-1 is set:
+			play sound "entity.experience_orb.pickup" with volume 1 with pitch 1 at all players
+			broadcast "&7"
+			broadcast "&e&lALERT &8» &6%coloured arg-1%"
+			broadcast "&7"
+
+on chat:
+	if message contains "hacks" or "hax":
+		if player has permission "filter2.bypass":
+			stop
+		else:
+			send "&cPlease use &6/report &cinstead of calling people out in chat."
+			cancel event
+			
+
+
+
+on chat:
+	if player's group is "default":
+		set {_chat} to difference between {chatc.%player%} and now
+		if {_chat} is less than 3 seconds:
+			send "&cPlease wait &e%difference between 3 seconds and {_chat}% &cbefore chatting again."
+			cancel event
+			stop
+		set {chatc.%player%} to now
+	else if player's group is "vip" or "elite" or "supreme" or "pro" or "god" or "king" or "twitch" or "youtube":
+		set {_chat} to difference between {chatc.%player%} and now
+		if {_chat} is less than 1 second:
+			send "&cPlease wait &e%difference between 1 second and {_chat}% &cbefore chatting again."
+			cancel event
+			stop
+		set {chatc.%player%} to now
+
+on chat:
+	if message contains "fuk" or "fuck" or "shit"  or "sh1t" or "sht" or "s3x" or "sex" or "fagg" or "nigg" or "nigga" or "nigger" or "cum" or "assh0le" or "asshole" or "die irl" or "pussy" or "youtube com" or "youtube.com" or "discord com" or "discord gg" or "discordapp com" or "dis gg" or "twitch tv" or "twitch.tv" or "discord.com" or "discord.gg" or "discordapp.com" or "youtu be" or "youtu.be" or "coom" or "orgasm" or "ejaculate" or "dixie normous" or "kkk" or "ISIS" or "a55" or "a5s" or "as5":
+		if player does not have permission "op":
+			if player's group is "Default":
+				set {group.%player%} to "&7%player%"
+			if player's group is "VIP":
+				set {group.%player%} to "&a%player%"
+			if player's group is "Elite":
+				set {group.%player%} to "&d%player%"
+			if player's group is "Supreme":
+				set {group.%player%} to "&9%player%"
+			if player's group is "Pro":
+				set {group.%player%} to "&6%player%"
+			if player's group is "God":
+				set {group.%player%} to "&9&l%player%"
+			if player's group is "King":
+				set {group.%player%} to "&6&l%player%"
+			if player's group is "YouTube":
+				set {group.%player%} to "&3%player%"
+			if player's group is "Twitch":
+				set {group.%player%} to "&5&l%player%"
+			if player's group is "Trainee":
+				set {group.%player%} to "&e%player%"
+			if player's group is "Builder":
+				set {group.%player%} to "&2&o%player%"
+			if player's group is "Mod":
+				set {group.%player%} to "&5%player%"
+			if player's group is "S-Mod":
+				set {group.%player%} to "&5&o%player%"
+			if player's group is "Admin":
+				set {group.%player%} to "&c%player%" #
+			if player's group is "Manager":
+				set {group.%player%} to "&c&l%player%"
+			if player's group is "Developer":
+				set {group.%player%} to "&b&l%player%"
+			if player's group is "Owner":
+				set {group.%player%} to "&4%player%"
+			cancel event
+			send "&cYour message has been blocked."
+			loop all players:
+				if loop-player has permission "filter.log":
+					#if {seefltr::%player%} is true:
+					send "&8[&cFiltered&8] %{group.%player%}% &6» &f%message%" to loop-players
+			stop
+		else:
+			send "&cYour message would have been blocked."
+			stop
+
+
+# hello
+# hi from cerial
+# btw tags1 is tuske tags, tags2 is new tags
+
+
+command /tags:
+	usage: &7Usage: &6/tags
+	trigger:
+		if arg-1 is not set:
+			if executor is a player:
+				tags2(player)
+			else:
+				send "&cThis command can only be used by players." to executor
+
+function tags2(p: player):
+	set metadata tag "tags" of {_p} to chest inventory with 5 rows named "&6Select a tag"
+	if {_p} has permission "tags.tag.PvP":
+		set slot 0 of metadata tag "tags" of {_p} with name tag named "&7Tag: &6PvP" with lore "&7[&c&lPvP&7]" and "&aThe oldest tag on 2873!"
+	
+	else:
+		set slot 0 of metadata tag "tags" of {_p} with name tag named "&7Tag: &6PvP" with lore "&7[&c&lPvP&7]" and "&aThe oldest tag on 2873!" and "&cYou don't have permission to use this tag."
+
+	if {_p} has permission "tags.tag.MobiGo":
+		set slot 1 of metadata tag "tags" of {_p} with name tag named "&7Tag: &6MobiGo" with lore "&7[&bMobi&6&lGo&7]" and "&9don't ask how this got here"
+	
+	else:
+		set slot 1 of metadata tag "tags" of {_p} with name tag named "&7Tag: &6MobiGo" with lore "&7[&bMobi&6&lGo&7]" and "&9don't ask how this got here" and "&cYou don't have permission to use this tag."
+
+	if {_p} has permission "tags.tag.Oof":
+		set slot 2 of metadata tag "tags" of {_p} with name tag named "&7Tag: &6Oof" with lore "&7[&4&lOof&7]" and "&crip"
+	
+	else:
+		set slot 2 of metadata tag "tags" of {_p} with name tag named "&7Tag: &6Oof" with lore "&7[&4&lOof&7]" and "&crip" and "&cYou don't have permission to use this tag."
+	
+	if {_p} has permission "tags.tag.Pig":
+		set slot 3 of metadata tag "tags" of {_p} with name tag named "&7Tag: &6Pig" with lore "&7[&dPIG&b+++&7]" and "&7technoblade want your pig tag?"
+	
+	else:
+		set slot 3 of metadata tag "tags" of {_p} with name tag named "&7Tag: &6Pig" with lore "&7[&dPIG&b+++&7]" and "&7technoblade want your pig tag?" and "&cYou don't have permission to use this tag."
+	
+	if {_p} has permission "tags.tag.Pig":
+		set slot 4 of metadata tag "tags" of {_p} with name tag named "&7Tag: &6Pig" with lore "&7[&dPIG&b+++&7]" and "&7technoblade want your pig tag?"
+	
+	else:
+		set slot 4 of metadata tag "tags" of {_p} with name tag named "&7Tag: &6Pig" with lore "&7[&dPIG&b+++&7]" and "&7technoblade want your pig tag?" and "&cYou don't have permission to use this tag."
+	
+	if {_p} has permission "tags.tag.OwO":
+		set slot 5 of metadata tag "tags" of {_p} with name tag named "&7Tag: &6OwO" with lore "&7[&c&lOwO&7]" and "&c&lOwO"
+	
+	else:
+		set slot 5 of metadata tag "tags" of {_p} with name tag named "&7Tag: &6OwO" with lore "&7[&c&lOwO&7]" and "&c&lOwO" and "&cYou don't have permission to use this tag."
+	
+	if {_p} has permission "tags.tag.Skeppy":
+		set slot 6 of metadata tag "tags" of {_p} with name tag named "&7Tag: &6Skeppy" with lore "&7[&bSkeppy&7]" and "&b&lzak ahmed"
+	
+	else:
+		set slot 6 of metadata tag "tags" of {_p} with name tag named "&7Tag: &6Skeppy" with lore "&7[&bSkeppy&7]" and "&b&lzak ahmed" and "&cYou don't have permission to use this tag."
+	
+	if {_p} has permission "tags.tag.Tag":
+		set slot 7 of metadata tag "tags" of {_p} with name tag named "&7Tag: &6Tag" with lore "&7[&1Tag&7]" and "&a!"
+	
+	else:
+		set slot 7 of metadata tag "tags" of {_p} with name tag named "&7Tag: &6Tag" with lore "&7[&1Tag&7]" and "&a!" and "&cYou don't have permission to use this tag."
+	
+	if {_p} has permission "tags.tag.Idot":
+		set slot 8 of metadata tag "tags" of {_p} with name tag named "&7Tag: &6Idot" with lore "&7[&4&lIdot&7]" and "&cidot"
+	
+	else:
+		set slot 8 of metadata tag "tags" of {_p} with name tag named "&7Tag: &6Idot" with lore "&7[&4&lIdot&7]" and "&cidot" and "&cYou don't have permission to use this tag."
+	
+	if {_p} has permission "tags.tag.14":
+		set slot 9 of metadata tag "tags" of {_p} with name tag named "&7Tag: &614" with lore "&7[&d14&7]" and "&514 best number"
+	
+	else:
+		set slot 9 of metadata tag "tags" of {_p} with name tag named "&7Tag: &614" with lore "&7[&d14&7]" and "&514 best number" and "&cYou don't have permission to use this tag."
+	
+	if {_p} has permission "tags.tag.USSR":
+		set slot 10 of metadata tag "tags" of {_p} with name tag named "&7Tag: &6USSR" with lore "&7[&6&lU&4&lSSR&7]" and "&7This is &cOUR &7tag."
+	
+	else:
+		set slot 10 of metadata tag "tags" of {_p} with name tag named "&7Tag: &6USSR" with lore "&7[&6&lU&4&lSSR&7]" and "&7This is &cOUR &7tag." and "&cYou don't have permission to use this tag."
+	
+	if {_p} has permission "tags.tag.England":
+		set slot 11 of metadata tag "tags" of {_p} with name tag named "&7Tag: &6England" with lore "&c[&fEngland&c]" and "&7God save the queen"
+	
+	else:
+		set slot 11 of metadata tag "tags" of {_p} with name tag named "&7Tag: &6England" with lore "&c[&fEngland&c]" and "&7God save the queen" and "&cYou don't have permission to use this tag."
+	
+	if {_p} has permission "tags.tag.French":
+		set slot 12 of metadata tag "tags" of {_p} with name tag named "&7Tag: &6French" with lore "&7[&9&lFr&f&len&c&lch&7]" and "&6Bonjour!"
+	
+	else:
+		set slot 12 of metadata tag "tags" of {_p} with name tag named "&7Tag: &6French" with lore "&7[&9&lFr&f&len&c&lch&7]" and "&6Bonjour!" and "&cYou don't have permission to use this tag."
+	
+	if {_p} has permission "tags.tag.Marble":
+		set slot 13 of metadata tag "tags" of {_p} with name tag named "&7Tag: &6Marble" with lore "&7[&6&lMa&5&lrb&2&lle&7]" and "&7yes"
+	
+	else:
+		set slot 13 of metadata tag "tags" of {_p} with name tag named "&7Tag: &6Marble" with lore "&7[&6&lMa&5&lrb&2&lle&7]" and "&7yes" and "&cYou don't have permission to use this tag."
+	
+	if {_p} has permission "tags.tag.t":
+		set slot 14 of metadata tag "tags" of {_p} with name tag named "&7Tag: &6t" with lore "&7[&d&lt&7]" and "&dthe letter t is respected here"
+	
+	else:
+		set slot 14 of metadata tag "tags" of {_p} with name tag named "&7Tag: &6t" with lore "&7[&d&lt&7]" and "&dthe letter t is respected here" and "&cYou don't have permission to use this tag."
+	
+	if {_p} has permission "tags.tag.Miskin":
+		set slot 15 of metadata tag "tags" of {_p} with name tag named "&7Tag: &6Miskin213" with lore "&7[&2Miskin213&7]" and "&7AKA &acyro_hairbrush"
+
+	else:
+		set slot 15 of metadata tag "tags" of {_p} with name tag named "&7Tag: &6Miskin213" with lore "&7[&2Miskin213&7]" and "&7AKA &acyro_hairbrush" and "&cYou don't have permission to use this tag."
+	
+	if {_p} has permission "tags.tag.Discord":
+		set slot 16 of metadata tag "tags" of {_p} with name tag named "&7Tag: &6Discord" with lore "&7[&9&lDiscord&7]" and "&ahttps://discord.gg/enW9AZ9 join rn"
+
+	else:
+		set slot 16 of metadata tag "tags" of {_p} with name tag named "&7Tag: &6Discord" with lore "&7[&9&lDiscord&7]" and "&ahttps://discord.gg/enW9AZ9 join rn" and "&cYou don't have permission to use this tag."
+	
+	if {_p} has permission "tags.tag.Minehut":
+		set slot 17 of metadata tag "tags" of {_p} with name tag named "&7Tag: &6Minehut" with lore "&7[&9&lMinehut&7]" and "&c&lPoop hosting &8jk"
+
+	else:
+		set slot 17 of metadata tag "tags" of {_p} with name tag named "&7Tag: &6Minehut" with lore "&7[&9&lMinehut&7]" and "&c&lPoop hosting &8jk" and "&cYou don't have permission to use this tag."
+	
+	if {_p} has permission "tags.tag.Baguette":
+		set slot 18 of metadata tag "tags" of {_p} with name tag named "&7Tag: &6Baguette" with lore "&7[&6&lBaguette&7]" and "&9&lFr&f&len&c&lch"
+
+	else:
+		set slot 18 of metadata tag "tags" of {_p} with name tag named "&7Tag: &6Baguette" with lore "&7[&6&lBaguette&7]" and "&9&lFr&f&len&c&lch" and "&cYou don't have permission to use this tag."
+	
+	if {_p} has permission "tags.tag.Cyrotech":
+		set slot 19 of metadata tag "tags" of {_p} with name tag named "&7Tag: &6Cyrotech" with lore "&7[&5&lCyro&9&ltech&7]" and "&ccyrotech hates his fans! &8jk"
+
+	else:
+		set slot 19 of metadata tag "tags" of {_p} with name tag named "&7Tag: &6Cyrotech" with lore "&7[&5&lCyro&9&ltech&7]" and "&ccyrotech hates his fans! &8jk" and "&cYou don't have permission to use this tag."
+	
+	if {_p} has permission "tags.tag.h":
+		set slot 20 of metadata tag "tags" of {_p} with name tag named "&7Tag: &6h" with lore "&7[&b&lh&7]" and "&3heych"
+
+	else:
+		set slot 20 of metadata tag "tags" of {_p} with name tag named "&7Tag: &6h" with lore "&7[&b&lh&7]" and "&3heych" and "&cYou don't have permission to use this tag."
+	
+	if {_p} has permission "tags.tag.h":
+		set slot 21 of metadata tag "tags" of {_p} with name tag named "&7Tag: &6h" with lore "&7[&b&lh&7]" and "&3heych"
+
+	else:
+		set slot 21 of metadata tag "tags" of {_p} with name tag named "&7Tag: &6h" with lore "&7[&b&lh&7]" and "&3heych" and "&cYou don't have permission to use this tag."
+	
+	if {_p} has permission "tags.tag.Booster":
+		set slot 22 of metadata tag "tags" of {_p} with name tag named "&7Tag: &dDiscord Booster" with lore "&7[&d&oBooster&7]" and "&6Earned by boosting our discord server!"
+
+	else:
+		set slot 22 of metadata tag "tags" of {_p} with name tag named "&7Tag: &dDiscord Booster" with lore "&7[&d&oBooster&7]" and "&6Earned by boosting our discord server!" and "&cYou don't have permission to use this tag."
+	
+	if {_p} has permission "tags.special.Easter":
+		set slot 23 of metadata tag "tags" of {_p} with name tag named "&7Tag: &aEaster" with lore "&7[&a&lE&2&lA&a&lS&2&lT&a&lE&2&lR&7]" and "&6Obtainable in the tag shop!" and "&c&lNo longer up for sale!"
+
+	else:
+		set slot 23 of metadata tag "tags" of {_p} with name tag named "&7Tag: &aEaster" with lore "&7[&a&lE&2&lA&a&lS&2&lT&a&lE&2&lR&7]" and "&6Obtainable in the tag shop!" and "&c&lNo longer up for sale!" and "&cYou don't have permission to use this tag."
+	
+	if {_p} has permission "tags.special.Summer":
+		set slot 24 of metadata tag "tags" of {_p} with name tag named "&7Tag: &eSummer" with lore "&7[&e&lS&6&lU&e&lM&6&lM&e&lE&6&lR&7]" and "&6Obtainable in the tag shop!" and "&c&lNo longer up for sale!"
+
+	else:
+		set slot 24 of metadata tag "tags" of {_p} with name tag named "&7Tag: &eSummer" with lore "&7[&e&lS&6&lU&e&lM&6&lM&e&lE&6&lR&7]" and "&6Obtainable in the tag shop!" and "&c&lNo longer up for sale!" and "&cYou don't have permission to use this tag."
+	
+	set slot 27, 28, 29, 30, 31, 32, 33, 34, 35 and 36 of metadata tag "tags" of {_p} with black stained glass pane named "&6"
+	if {tagOn::%{_p}%} = true:
+		set slot 40 of metadata tag "tags" of {_p} with skull of {_p} named "&7Current tag: &6%coloured {tagName::%{_p}%}%" with lore "%coloured {tag::%{_p}%}%&6" and "&6Click to &cremove &6your current tag."
+
+	else:
+		set slot 40 of metadata tag "tags" of {_p} with skull of {_p} named "&6You don't have a tag on!" with lore "&7Select from the tags above to choose a tag."
+
+on inventory click:
+	if event-inventory = (metadata tag "tags" of player):
+		cancel event
+		if index of event-slot = 40:
+			if {tagOn::%player%} = true:
+				set {tagOn::%player%} to false
+				delete {tag::%player%}
+				send "&7Your current tag has been &cremoved&7."
+
+		if index of event-slot = 0:
+			close inventory of player
+			settag(player, "PvP")
+		if index of event-slot = 1:
+			close inventory of player
+			settag(player, "MobiGo")
+		if index of event-slot = 2:
+			close inventory of player
+			settag(player, "Oof")
+		if index of event-slot = 3:
+			close inventory of player
+			settag(player, "Pig")
+		if index of event-slot = 4:
+			close inventory of player
+			settag(player, "OwO")
+		if index of event-slot = 5:
+			close inventory of player
+			settag(player, "Skeppy")
+		if index of event-slot = 6:
+			close inventory of player
+			settag(player, "Tag")
+		if index of event-slot = 7:
+			close inventory of player
+			settag(player, "Idot")
+		if index of event-slot = 8:
+			close inventory of player
+			settag(player, "14")
+		if index of event-slot = 9:
+			close inventory of player
+			settag(player, "USSR")
+		if index of event-slot = 10:
+			close inventory of player
+			settag(player, "England")
+		if index of event-slot = 11:
+			close inventory of player
+			settag(player, "French")
+		if index of event-slot = 12:
+			close inventory of player
+			settag(player, "Marble")
+		if index of event-slot = 13:
+			close inventory of player
+			settag(player, "t")
+		if index of event-slot = 14:
+			close inventory of player
+			settag(player, "Miskin")
+		if index of event-slot = 15:
+			close inventory of player
+			settag(player, "Discord")
+		if index of event-slot = 16:
+			close inventory of player
+			settag(player, "Minehut")
+		if index of event-slot = 17:
+			close inventory of player
+			settag(player, "Baguette")
+		if index of event-slot = 18:
+			close inventory of player
+			settag(player, "Cyrotech")
+		if index of event-slot = 19:
+			close inventory of player
+			settag(player, "h")
+		if index of event-slot = 20:
+			close inventory of player
+			settag(player, "Booster")
+		if index of event-slot = 21:
+			close inventory of player
+			settag(player, "Easter")
+		if index of event-slot = 22:
+			close inventory of player
+			settag(player, "Summer")
+
+function settag(p: player, t: text):
+	if {_t} is "PvP":
+		set {tagOn::%{_p}%} to true
+		set {tagName::%{_p}%} to "%{_t}%"
+		set {tag::%{_p}%} to "&7[&c&lPvP&7]"
+		send "&aYour tag is now set to &6%{tagName::%{_p}%}%&a." to {_p}
+	if {_t} is "MobiGo":
+		set {tagOn::%{_p}%} to true
+		set {tagName::%{_p}%} to "%{_t}%"
+		set {tag::%{_p}%} to "&7[&bMobi&6&lGo&7]"
+		send "&aYour tag is now set to &6%{tagName::%{_p}%}%&a." to {_p}
+	if {_t} is "Oof":
+		set {tagOn::%{_p}%} to true
+		set {tagName::%{_p}%} to "%{_t}%"
+		set {tag::%{_p}%} to "&7[&4&lOof&7]"
+		send "&aYour tag is now set to &6%{tagName::%{_p}%}%&a." to {_p}
+	if {_t} is "Pig":
+		set {tagOn::%{_p}%} to true
+		set {tagName::%{_p}%} to "%{_t}%"
+		set {tag::%{_p}%} to "&7[&dPIG&b+++&7]"
+		send "&aYour tag is now set to &6%{tagName::%{_p}%}%&a." to {_p}
+	if {_t} is "OwO":
+		set {tagOn::%{_p}%} to true
+		set {tagName::%{_p}%} to "%{_t}%"
+		set {tag::%{_p}%} to "&7[&c&lOwO&7]"
+		send "&aYour tag is now set to &6%{tagName::%{_p}%}%&a." to {_p}
+	if {_t} is "Skeppy":
+		set {tagOn::%{_p}%} to true
+		set {tagName::%{_p}%} to "%{_t}%"
+		set {tag::%{_p}%} to "&7[&bSkeppy&7]"
+		send "&aYour tag is now set to &6%{tagName::%{_p}%}%&a." to {_p}
+	if {_t} is "Tag":
+		set {tagOn::%{_p}%} to true
+		set {tagName::%{_p}%} to "%{_t}%"
+		set {tag::%{_p}%} to "&7[&1Tag&7]"
+		send "&aYour tag is now set to &6%{tagName::%{_p}%}%&a." to {_p}
+	if {_t} is "Idot":
+		set {tagOn::%{_p}%} to true
+		set {tagName::%{_p}%} to "%{_t}%"
+		set {tag::%{_p}%} to "&7[&4&lIdot&7]"
+		send "&aYour tag is now set to &6%{tagName::%{_p}%}%&a." to {_p}
+	if {_t} is "14":
+		set {tagOn::%{_p}%} to true
+		set {tagName::%{_p}%} to "%{_t}%"
+		set {tag::%{_p}%} to "&7[&d14&7]"
+		send "&aYour tag is now set to &6%{tagName::%{_p}%}%&a." to {_p}
+	if {_t} is "USSR":
+		set {tagOn::%{_p}%} to true
+		set {tagName::%{_p}%} to "%{_t}%"
+		set {tag::%{_p}%} to "&7[&6&lU&4&lSSR&7]"
+		send "&aYour tag is now set to &6%{tagName::%{_p}%}%&a." to {_p}
+	if {_t} is "England":
+		set {tagOn::%{_p}%} to true
+		set {tagName::%{_p}%} to "%{_t}%"
+		set {tag::%{_p}%} to "&c[&fEngland&c]"
+		send "&aYour tag is now set to &6%{tagName::%{_p}%}%&a." to {_p}
+	if {_t} is "French":
+		set {tagOn::%{_p}%} to true
+		set {tagName::%{_p}%} to "%{_t}%"
+		set {tag::%{_p}%} to "&7[&9&lFr&f&len&c&lch&7]"
+		send "&aYour tag is now set to &6%{tagName::%{_p}%}%&a." to {_p}
+	if {_t} is "Marble":
+		set {tagOn::%{_p}%} to true
+		set {tagName::%{_p}%} to "%{_t}%"
+		set {tag::%{_p}%} to "&7[&6&lMa&5&lrb&2&lle&7]"
+		send "&aYour tag is now set to &6%{tagName::%{_p}%}%&a." to {_p}
+	if {_t} is "t":
+		set {tagOn::%{_p}%} to true
+		set {tagName::%{_p}%} to "%{_t}%"
+		set {tag::%{_p}%} to "&7[&d&lt&7]"
+		send "&aYour tag is now set to &6%{tagName::%{_p}%}%&a." to {_p}
+	if {_t} is "Miskin213":
+		set {tagOn::%{_p}%} to true
+		set {tagName::%{_p}%} to "%{_t}%"
+		set {tag::%{_p}%} to "&7[&2Miskin213&7]"
+		send "&aYour tag is now set to &6%{tagName::%{_p}%}%&a." to {_p}
+	if {_t} is "Discord":
+		set {tagOn::%{_p}%} to true
+		set {tagName::%{_p}%} to "%{_t}%"
+		set {tag::%{_p}%} to "&7[&9&lDiscord&7]"
+		send "&aYour tag is now set to &6%{tagName::%{_p}%}%&a." to {_p}
+	if {_t} is "Minehut":
+		set {tagOn::%{_p}%} to true
+		set {tagName::%{_p}%} to "%{_t}%"
+		set {tag::%{_p}%} to "&7[&9&lMinehut&7]"
+		send "&aYour tag is now set to &6%{tagName::%{_p}%}%&a." to {_p}
+	if {_t} is "Baguette":
+		set {tagOn::%{_p}%} to true
+		set {tagName::%{_p}%} to "%{_t}%"
+		set {tag::%{_p}%} to "&7[&6&lBaguette&7]"
+		send "&aYour tag is now set to &6%{tagName::%{_p}%}%&a." to {_p}
+	if {_t} is "Cyrotech":
+		set {tagOn::%{_p}%} to true
+		set {tagName::%{_p}%} to "%{_t}%"
+		set {tag::%{_p}%} to "&7[&5&lCyro&9&ltech&7]"
+		send "&aYour tag is now set to &6%{tagName::%{_p}%}%&a." to {_p}
+	if {_t} is "Booster":
+		set {tagOn::%{_p}%} to true
+		set {tagName::%{_p}%} to "%{_t}%"
+		set {tag::%{_p}%} to "&7[&d&oBooster&7]"
+		send "&aYour tag is now set to &6%{tagName::%{_p}%}%&a." to {_p}
+	if {_t} is "h":
+		set {tagOn::%{_p}%} to true
+		set {tagName::%{_p}%} to "%{_t}%"
+		set {tag::%{_p}%} to "&7[&b&lh&7]"
+		send "&aYour tag is now set to &6%{tagName::%{_p}%}%&a." to {_p}
+	if {_t} is "easter":
+		set {tagOn::%{_p}%} to true
+		set {tagName::%{_p}%} to "%{_t}%"
+		set {tag::%{_p}%} to "&7[&a&lE&2&lA&a&lS&2&lT&a&lE&2&lR&7]"
+		send "&aYour tag is now set to &6%{tagName::%{_p}%}%&a." to {_p}
+	if {_t} is "summer":
+		set {tagOn::%{_p}%} to true
+		set {tagName::%{_p}%} to "%{_t}%"
+		set {tag::%{_p}%} to "&7[&e&lS&6&lU&e&lM&6&lM&e&lE&6&lR&7]"
+		send "&aYour tag is now set to &6%{tagName::%{_p}%}%&a." to {_p}
+
+
+command /shop:
+	usage: &7Usage: &6/shop
+	trigger:
+		open virtual chest with 3 rows with name "&3&l28&b&l73 &6Shop" to player
+		format gui slot 11 of player with name tag with name "&6Tags" with lore "&7Get a next to your name in chat." and "&aSpecial tags are round at special times of the year!" and "&c&lCOMING SOON" to close:
+			send "&aThis store is coming soon!"
+		format gui slot 13 of player with paper with name "&6What is the shop?" with lore "&7The shop is where you can buy things to" and "&7give you perks." and "&aAll purchases use INGAME money. No need for your mom's credit card." to do nothing
+		format gui slot 15 of player with gold ingot with name "&6Ranks" with lore "&7Get special upgrades that are unique to ranks here!" and "&aAll purchases use ingame money." to close:
+			player command "/rankshop"
+
+on chat:
+	if message is "a", "tt" or "t" or "g":
+		cancel event
+		send "&6&lTIP &8» &7Instead of typing &a%message%&a, &7you can use &a/ping&7."
+
+on chat:
+	if message is "lag":
+		send "&6Are you experiencing some lag?"
+		send "&7Here are some things you can do to help it."
+		send "&8&m                                            &8"
+		send "&61 • &eTry leave and rejoin the server."
+		send "&62 • &eCheck your latency by doing /ping. If it is over 500, you may be lagging."
+		send "&63 • &eTake an internet speed test. We recommend clicking &a&l<link:https://speedtest.net>Here<reset>&e."
+		send "&64 • &eCheck with your ISP. They might be having issues on their side, so do not contact us about this."
+		send "&65 • &eTry changing your DNS server. We recommend Google or Cloudflare DNS. It's easy to switch. Watch a tutorial if you do not know."
+		send "&8&m                                            &8"
+		send "&cSometimes, the server lags, &lDO NOT CONTACT US!!! &cWe are not affiliated with the Minehut Support Team or Mojang Support."
+
+command /club:
+	usage: &7Usage: &6/club
+	trigger:
+		send ""
+		send "&7Click <tooltip:&aClick here!><link:https://forums.minehut.com/clubs/811-2873/>&6Here <reset>&7to join the &9Minehut Forums &7Club." # https://forums.minehut.com/clubs/811-2873/
+		send ""

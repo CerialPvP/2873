@@ -1,0 +1,55 @@
+command /masssay [<text>]:
+	usage: &eUsage: &6/masssay &f<text>
+	permission: masssay.use
+	permission message: &cI'm sorry, but you do not have permission to perform that command.
+	trigger:
+		if arg-1 is set:
+			loop all players:
+				make loop-players say "%arg-1%"
+				wait 1 tick
+
+command /bruhmoment:
+	usage: &eUsage: &6/bruhmoment
+	permission: bruh.use
+	permission message: &cI'm sorry, but you do not have permission to perform that command.
+	trigger:
+		loop all players:
+			make loop-players say "Bruh Moment"
+			wait 1 tick
+
+command /boomer [<text>]:
+	usage: &eUsage: &6/boomer
+	permission: boomer.use
+	permission message: &cI'm sorry, but you do not have permission to perform that command.
+	trigger:
+		loop all players:
+			make loop-players say "Boomer"
+			wait 1 tick
+
+command /f:
+	usage: &eUsage: &6/f
+	permission: f.use
+	permission message: &cI'm sorry, but you do not have permission to perform that command.
+	trigger:
+		loop all players:
+			make loop-players say "f"
+			wait 1 tick
+
+command /14:
+	usage: &eUsage: &6/14
+	permission: 14.use
+	permission message: &cI'm sorry, but you do not have permission to perform that command.
+	trigger:
+		loop all players:
+			make loop-players say "14"
+			wait 1 tick
+
+
+command /2873:
+	usage: &eUsage: &6/2873
+	permission: hehehe.use
+	permission message: &cI'm sorry, but you do not have permission to perform that command.
+	trigger:
+		loop all players:
+			make loop-players say "2873 Is the best server!"
+			wait 1 tick
