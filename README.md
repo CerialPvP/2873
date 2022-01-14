@@ -6,7 +6,6 @@ You can find them in the **skripts** folder.
 
 # How to update skripts?
 
-Just type /updateskript (skript name) ingame to get the latest skript from this repository!
-To get the skript which does that, go to the **skripts** folder, then download **updater.sk**!
+Just go to the **skripts** folder, go to a skript you need to update, paste it into Minehut, and voila!
 
 Thanks for being on this repository, peace!
