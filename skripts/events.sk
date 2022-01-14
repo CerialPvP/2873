@@ -1,0 +1,92 @@
+command /event [<text>]:
+	trigger:
+		if arg 1 = "host":
+			if player has permission "event.host":
+				send "&eOpening host menu..."
+				wait 0.5 seconds
+				open chest inventory with 1 row named "&eSelect an event:" to player
+				set slot 0 of player's current inventory to red wool named "&64 corners"
+				set slot 1 of player's current inventory to water bucket named "&6Waterdrop"
+			
+			else:
+				send "&cI'm sorry, but you do not have permission to perform that command."
+
+		if arg 1 = "join":
+			if {event.Host} = true:
+				if {event.Joined} doesn't contain player:
+					if {event.4Corners} = true:
+						add player to {event.Joined}
+						add 1 to {event.JoinedCount}
+						console command "/warp 4corners %player%"
+						send "&aTeleported to event!"
+						send "&e%player% has joined the event. There are %{event.JoinedCount}% players in the event." to all players
+						stop
+					
+					if {event.Waterdrop} = true:
+						add player to {event.Joined}
+						add 1 to {event.JoinedCount}
+						console command "/warp waterdrop %player%"
+						send "&aTeleported to event!"
+						send "&e%player% has joined the event. There are %{event.JoinedCount}% players in the event." to all players
+						stop
+				
+				else:
+					send "&cYou are already in the event!"
+				
+			else:
+				send "&cNo event is being hosted!"
+				stop
+		
+		if arg 1 = "leave":
+			if {event.Host} = true:
+				if {event.Joined} contains player:
+					remove player from {event.Joined}
+					remove 1 from {event.JoinedCount}
+					console command "/spawn %player%"
+					send "&e%player% has left the event. There are %{event.JoinedCount}% players in the event." to all players
+					stop
+				
+				else:
+					send "&cYou are not in an event."
+					stop
+
+			else:
+				send "&cNo event is being hosted!"
+				stop
+	
+	if arg 1 = "end":
+		if player has permission "event.host":
+			if {event.Host} = true:
+				loop all players:
+					if {event.Joined} contains loop-player:
+						console command "/spawn %loop-player%"
+
+				set {event.Host} to false
+				clear {event.Joined}
+				clear {event.JoinedCount}
+				set {event.4Corners} to false
+				set {event.Waterdrop} to false
+				send "&eThe event has been ended by %player%." to all players
+				stop
+			
+			else:
+				send "&cNo event is being hosted!"
+				stop
+		
+		else:
+			send "&cI'm sorry, but you do not have permission to perform that command."
+
+on inventory click:
+	if name of event-inventory = "&eSelect an event:"
+		cancel event
+		if index of event-slot = 0:
+			send formatted "&7[&9&lEvents&7] &6%player% &aIs hosting a 4 Corners event! Click <cmd:/event join>&e&nhere<reset> &ato join." to all players
+			make console execute command "/warp 4corners %player%"
+			set {event.Host} to true
+			set {event.4Corners} to true
+		
+		if index of event-slot = 1:
+			send formatted "&7[&9&lEvents&7] &6%player% &aIs hosting a Waterdrop event! Click <cmd:/event join>&e&nhere<reset> &ato join" to all players
+			make console execute command "/warp 4corners %player%"
+			set {event.Host} to true
+			set {event.Waterdrop} to true
