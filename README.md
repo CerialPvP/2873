@@ -6,6 +6,17 @@ You can find them in the **skripts** folder.
 
 # How to update skripts?
 
-Just go to the **skripts** folder, go to a skript you need to update, paste it into Minehut, and voila!
+There are 2 ways.
 
-Thanks for being on this repository, peace!
+## The first way
+
+Just go to the scripts folder, go to the updater skript, put that in your server
+and then execute /update <skript name> ingame. The skript will fetch the wanted skript from the releases tab and
+it will download to 2873, then it will reload.
+  
+## The second way
+
+Just go to the scripts folder in the repository, then you can go to the wanted skript, go to it,
+copy and paste it to 2873, and reload.
+  
+# Peace! 
